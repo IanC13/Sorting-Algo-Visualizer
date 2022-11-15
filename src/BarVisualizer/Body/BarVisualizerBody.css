@@ -1,0 +1,21 @@
+.array-container {
+  max-width: 90%;
+  margin: auto;
+  padding: 0;
+
+  height: 80vh;
+  flex-shrink: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  
+  background-color: lightgrey;
+}
+
+.array-bar {
+  background-color: pink;
+  margin: 0;
+  padding: 0;
+  border: 1px solid black
+}
