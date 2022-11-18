@@ -1,0 +1,52 @@
+:root {
+  --main-color: rgb(104, 117, 217);
+  --main-color-hover: rgb(104, 117, 217, 0.2);
+  --track-color: white;
+  --mark-color: black;
+
+  --track-height: 10px;
+  --thumb-size: 30px;
+}
+
+.slider {
+  /* max width of your slider */
+  max-width: 300px;
+}
+
+.track {
+  /* Top value to align your track to the center of your thumb */
+  top: calc(var(--thumb-size)/2 - var(--track-height)/2);
+
+  /* thickness of the track */
+  height: var(--track-height);
+  border-radius: 10px;
+ /* default color of your track */
+  background: var(--track-color);
+}
+
+.track.track-0 {
+  /* color of the track before the thumb */
+  background: var(--main-color);
+}
+
+.thumb {
+  cursor: pointer;
+  /*color for the thumb */
+  background: var(--main-color);
+  /* shape of the thumb: circle */
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  border-radius: 100%;
+  /* remove default outline when selected */
+  outline: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.thumb:hover {
+  box-shadow: 0 0 0 8px var(--main-color-hover);
+}

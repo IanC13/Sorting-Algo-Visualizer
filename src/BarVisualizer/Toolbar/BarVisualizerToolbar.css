@@ -1,6 +1,12 @@
 .toolbar-container {
   max-width: 90%;
   margin: auto;
+
+  display: flex;
+  justify-content: space-between;
+
+  background-color: lightseagreen;
+
 }
 
 .buttons {
@@ -8,8 +14,12 @@
   gap: min(20px, 10%);
   flex-wrap: wrap;
   margin-top: -10px;
+  width: 50%;
 }
 
+.slider {
+  width: 50%;
+}
 
 button {
   background-color: #EA4C89;
@@ -39,3 +49,4 @@ button {
 button:hover {
   background-color: #F082AC;
 }
+

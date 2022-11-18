@@ -22,15 +22,12 @@ function bubbleSort(array) {
 
         let temp = newArray[j];
         newArray[j] = newArray[j+1];
-
         newArray[j+1] = temp;
-        
-
+      
         swap = true;
       } else {
         largerArray.push([j+1, j+1]);
       }
-
 
       animations.push([j, j+1]);
       allArrayStates.push([...newArray]);
