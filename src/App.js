@@ -6,7 +6,7 @@ function App() {
     <div className="App">
       <h1>APP.js</h1>
       <BarVisualizer />
-
+      <h1>--</h1>
     </div>
   );
 }

@@ -1,0 +1,41 @@
+.toolbar-container {
+  max-width: 90%;
+  margin: auto;
+}
+
+.buttons {
+  display: flex;
+  gap: min(20px, 10%);
+  flex-wrap: wrap;
+  margin-top: -10px;
+}
+
+
+button {
+  background-color: #EA4C89;
+  border-radius: 8px;
+  border-style: none;
+
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+
+  line-height: 20px;
+
+  margin: 0;
+  outline: none;
+  padding: 10px 16px;
+
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+
+  touch-action: manipulation;
+
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #F082AC;
+}

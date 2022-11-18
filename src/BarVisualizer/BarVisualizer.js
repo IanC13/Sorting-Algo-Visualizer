@@ -6,9 +6,8 @@ import './BarVisualizer.css';
 function BarVisualizer() {
   return (
     <div className="BarVisualizer">
-      <h1>BarVisualizer.js</h1>
+      <h2>BarVisualizer.js</h2>
       <BarVisualizerBody />
-
     </div>
   );
 }
