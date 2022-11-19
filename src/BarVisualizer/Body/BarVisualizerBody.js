@@ -4,6 +4,7 @@ import './BarVisualizerBody.css';
 const DEFAULT_COLOR = '#EA4C89';
 const HIGHLIGHT_COLOR = 'turquoise';
 const LARGER_COLOR = 'green'; // Color for the larger element when comparing
+const SORTED_COLOR = 'MediumSpringGreen';
 
 // Function component using React Hooks 
 function BarVisualizerBody(props) {
@@ -27,7 +28,11 @@ function BarVisualizerBody(props) {
             style={ { height: `${(value/Math.max(...props.array)) * 100}%`,
                       width: `${100/(props.numOfElements + numOfSpaces)}%`,
                       // currentBars hold the 2 bars that we are comparing. change colors accordingly
-                      backgroundColor: (id === props.largerBar ? LARGER_COLOR : (id === props.currentBars[0] || id === props.currentBars[1]) ? HIGHLIGHT_COLOR : DEFAULT_COLOR) } }
+                      backgroundColor: (props.sorted === true ? SORTED_COLOR : 
+                                       (id === props.largerBar ? LARGER_COLOR : 
+                                       (id === props.currentBars[0] || id === props.currentBars[1]) ? HIGHLIGHT_COLOR : 
+                                       DEFAULT_COLOR)) 
+                  } }
           >
           </div>
         )}

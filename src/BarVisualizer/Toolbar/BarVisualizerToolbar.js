@@ -21,14 +21,26 @@ function BarVisualizerToolbar(props) {
             <p>Change Array Size</p>
           </div>
           <div class="placeholder"></div>
-          <Slider numOfElements={props.numOfElements} onElementsSliderChange={props.onElementsSliderChange} />
+          <Slider 
+            min={10}
+            max={100}
+            default={50}
+            currentValue={props.numOfElements} 
+            onSliderChange={props.onElementsSliderChange} 
+          />
         </div>
         <div id="speed-slider">
           <div class="label">
             <p>Change Animation Speed</p>
           </div>
           <div class="placeholder"></div>
-          <Slider />
+          <Slider 
+            min={10}
+            max={500}
+            default={250}
+            currentValue={props.currentDelay} 
+            onSliderChange={props.onDelaySliderChange}
+          />
         </div>
       </div>
 

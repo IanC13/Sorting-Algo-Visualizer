@@ -6,7 +6,7 @@ import './SliderComponent.css';
 function Slider(props) {
 
   function handleSliderBarChange (value) {
-    props.onElementsSliderChange(value);
+    props.onSliderChange(value);
   }
 
   return (
@@ -15,10 +15,10 @@ function Slider(props) {
         className="slider"
         trackClassName="track"
         thumbClassName="thumb"
-        min={10}
-        max={100}
-        defaultValue={50}
-        value={props.numOfElements}
+        min={props.min}
+        max={props.max}
+        defaultValue={props.default}
+        value={props.currentValue}
         onChange={handleSliderBarChange}
         renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
       />

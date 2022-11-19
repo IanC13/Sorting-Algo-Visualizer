@@ -5,9 +5,6 @@ import './BarVisualizer.css';
 
 import bubbleSort from '../Algorithms/BubbleSort';
 
-const ANIMATION_DELAY_MS = 10;
-const ANIMATION_COLOR_DELAY_MS = 250;
-
 function BarVisualizer() {
   // Lifting the state up
   // Number of elements in the array 
@@ -22,6 +19,10 @@ function BarVisualizer() {
 
   // Larger of the comparisons
   const [largerBar, setLarger] = useState();
+
+  const [sorted, setSorted] = useState(false);
+
+  const [animationDelay, setAnimationDelay] = useState(250);
 
   // componentDidMount eqv only 
   useEffect(function () {
@@ -44,18 +45,24 @@ function BarVisualizer() {
     setArray(tempArray);
     setCurrentBars([]);
     setLarger([]);
+    setSorted(false);
   }
 
+  function calculateSpeed() {
+    return (-1 * animationDelay) + 510;
+  }
 
   function bubbleSortFunction() {
+    let speed = calculateSpeed();
+
     let {allArrayStates, animations, largerArray} = bubbleSort(array);
 
     const length = animations.length;
 
     // Delay from 2 same color highlighted bar to larger one highlighted with a different color
-    let largerColorDelay = ANIMATION_COLOR_DELAY_MS;
+    let largerColorDelay = speed;
     // Delay from 2 differently highlighted bar to swapping
-    let swapDelay = largerColorDelay + ANIMATION_COLOR_DELAY_MS;
+    let swapDelay = largerColorDelay + speed;
 
     for (let i = 0; i < length; i++) {
       setTimeout(() => {
@@ -78,7 +85,12 @@ function BarVisualizer() {
 
         // reset swapped bars to be same color
         setLarger();
-      }, i * (ANIMATION_DELAY_MS + (largerColorDelay + swapDelay)));
+
+        if (i === length - 1){
+          setSorted(true);
+        }
+
+      }, i * (speed + (largerColorDelay + swapDelay)));
       /*
       i * DELAY because setTimeout is non-blocking i.e. entire for loop will 
       run during wait time. for loop runs pretty much instantly so everything
@@ -96,17 +108,24 @@ function BarVisualizer() {
     setLarger([]);
   }
 
-
   function handleElementsSliderChange(value) {
     setNumOfElements(value);
+  }
+
+  function handleDelaySliderChange(value) {
+    setAnimationDelay(value);
   }
 
   return (
     <div className="BarVisualizer">
       <h2>BarVisualizer.js</h2>
-      <BarVisualizerToolbar 
+      <BarVisualizerToolbar
         numOfElements={numOfElements} 
         onElementsSliderChange={handleElementsSliderChange}
+
+        currentDelay={animationDelay}
+        onDelaySliderChange={handleDelaySliderChange}
+
         generateNewArray={newArray} 
         bubbleSort={bubbleSortFunction}
       />
@@ -116,6 +135,7 @@ function BarVisualizer() {
         array={array}
         currentBars={currentBars}
         largerBar={largerBar}
+        sorted={sorted}
       />
     </div>
   );
