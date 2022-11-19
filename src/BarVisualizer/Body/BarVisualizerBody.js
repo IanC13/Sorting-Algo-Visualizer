@@ -8,8 +8,8 @@ import bubbleSort from '../../Algorithms/BubbleSort';
   Body of Bar Visualizer
 */
 
-const NUMBER_OF_ITEMS = 100;
-const NUMBER_OF_SPACES = NUMBER_OF_ITEMS - 1;
+// const NUMBER_OF_ITEMS = 100;
+// const NUMBER_OF_SPACES = NUMBER_OF_ITEMS - 1;
 const ANIMATION_DELAY_MS = 10;
 const ANIMATION_COLOR_DELAY_MS = 250;
 
@@ -18,7 +18,7 @@ const HIGHLIGHT_COLOR = 'turquoise';
 const LARGER_COLOR = 'green'; // Color for the larger element when comparing
 
 // Function component using React Hooks 
-function BarVisualizerBody() {
+function BarVisualizerBody(props) {
   // States
   // The array to be sorted
   const [array, setArray] = useState([]);
@@ -29,16 +29,22 @@ function BarVisualizerBody() {
   // Larger of the comparisons
   const [largerBar, setLarger] = useState();
 
+  const numOfSpaces = props.numOfElements - 1;
+
   // componentDidMount eqv only 
   useEffect(function () {
     newArray();
   }, [])
 
-  function newArray() {
+  useEffect(function () {
+    newArray(props.numOfElements)
+  }, [props.numOfElements])
+
+  function newArray(numOfElements) {
     let tempArray = [];
 
     // Generate 100 random numbers to put in array
-    for (let i = 0; i < NUMBER_OF_ITEMS; i++) {
+    for (let i = 0; i < numOfElements; i++) {
         tempArray.push(randomInteger());
     }; 
 
@@ -105,14 +111,13 @@ function BarVisualizerBody() {
 
   // render
   return (
+      //<BarVisualizerToolbar generateNewArray={newArray} bubbleSort={bubbleSortFunction} />
     <div>
-    <BarVisualizerToolbar generateNewArray={newArray} bubbleSort={bubbleSortFunction} />
-      <h3>BarVisualizerBody.js</h3>
       <div
         className='array-container'
         // Gap and bar width is the same rn
         // the width is a percentage of the container where each percentage = 100(%)/(bars + spaces) %
-        style={ { gap: `${100/(NUMBER_OF_ITEMS + NUMBER_OF_SPACES)}%` } }
+        style={ { gap: `${100/(props.numOfElements + numOfSpaces)}%` } }
       >
         {array.map((value, id) =>
           <div
@@ -120,7 +125,7 @@ function BarVisualizerBody() {
             key={id}
             // Making of the bars
             style={ { height: `${(value/Math.max(...array)) * 100}%`,
-                      width: `${100/(NUMBER_OF_ITEMS + NUMBER_OF_SPACES)}%`,
+                      width: `${100/(props.numOfElements + numOfSpaces)}%`,
                       // currentBars hold the 2 bars that we are comparing. change colors accordingly
                       backgroundColor: (id === largerBar ? LARGER_COLOR : (id === currentBars[0] || id === currentBars[1]) ? HIGHLIGHT_COLOR : DEFAULT_COLOR) } }
           >

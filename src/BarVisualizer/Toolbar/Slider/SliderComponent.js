@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 // react slider package
 import ReactSlider from 'react-slider';
 import './SliderComponent.css';
-import BarVisualizerBody from '../../Body/BarVisualizerBody';
 
-function Slider() {
-  // States
-  // The array to be sorted
-  const [numOfElements, setNumOfElements] = useState(10);
+function Slider(props) {
 
+  function handleSliderBarChange (value) {
+    props.onElementsSliderChange(value);
+  }
 
   return (
     <div>
@@ -19,14 +18,11 @@ function Slider() {
         min={10}
         max={100}
         defaultValue={10}
-        value={numOfElements}
-        onChange={(numOfElements) => {
-          setNumOfElements(numOfElements);
-        }}
+        value={props.numOfElements}
+        onChange={handleSliderBarChange}
         renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
       />
 
-    <BarVisualizerBody num={numOfElements} />
 
     </div>
   )

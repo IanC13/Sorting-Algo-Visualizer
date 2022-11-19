@@ -16,7 +16,7 @@ function BarVisualizerToolbar(props) {
       </div>
 
       <div class="slider">
-        <Slider />
+        <Slider numOfElements={props.numOfElements} onElementsSliderChange={props.onElementsSliderChange} />
       </div>
     </div>
   );
