@@ -9,6 +9,7 @@ function Slider(props) {
     props.onSliderChange(value);
   }
 
+
   return (
     <div>
       <ReactSlider
@@ -20,7 +21,11 @@ function Slider(props) {
         defaultValue={props.default}
         value={props.currentValue}
         onChange={handleSliderBarChange}
-        renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
+        // renderThumb={(props, state) => 
+        //   <div {...props}>
+        //     { state.valueNow }
+        //   </div>
+        // }
       />
     </div>
   )

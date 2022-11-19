@@ -1,11 +1,12 @@
 :root {
-  --main-color: rgb(104, 117, 217);
+  /* --main-color: rgb(105, 39, 251); */
+  --main-color: #A51C30; 
   --main-color-hover: rgb(104, 117, 217, 0.2);
-  --track-color: white;
-  --mark-color: black;
+  --track-color: lightgrey;
 
   --track-height: 10px;
-  --thumb-size: 30px;
+  --thumb-size: 20px;
+  --thumb-border: 5px;
 }
 
 
@@ -14,20 +15,19 @@
   max-width: 80%;
   height: auto;
   margin: auto;
-
-  bottom: 4em;
+  bottom: 1.5em;
 }
 
-/* If the viewport size is less than 600px, bottom value in .slider is 2em*/
+/* If the viewport size is less than 600px, bottom value in .slider is 2em */
 @media (max-width: 600px) {
   .slider {
-    bottom: 2em;
+    bottom: 1em;
   }
 }
 
 .track {
   /* Top value to align your track to the center of your thumb */
-  top: calc((var(--thumb-size) + 4px)/2 - var(--track-height)/2);
+  top: calc((var(--thumb-size) + 2 * var(--thumb-border))/2 - var(--track-height)/2);
 
   /* thickness of the track */
   height: var(--track-height);
@@ -49,7 +49,7 @@
   width: var(--thumb-size);
   height: var(--thumb-size);
   border-radius: 100%;
-  border: 2px solid var(--main-color);
+  border: var(--thumb-border) solid var(--main-color);
   /* remove default outline when selected */
   outline: none;
 

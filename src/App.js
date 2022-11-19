@@ -4,9 +4,8 @@ import BarVisualizer from './BarVisualizer/BarVisualizer';
 function App() {
   return (
     <div className="App">
-      <h1>APP.js</h1>
+      <h1>Sorting Algorithms Visualizer</h1>
       <BarVisualizer />
-      <h1>--</h1>
     </div>
   );
 }

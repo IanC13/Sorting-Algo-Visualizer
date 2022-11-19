@@ -1,12 +1,15 @@
 .toolbar-container {
   max-width: 90%;
+  padding: 10px;
+  padding-left: 0;
   margin: auto;
+  box-sizing: border-box;
 
   display: flex;
   justify-content: space-between;
   gap: 10%;
 
-  background-color: lightseagreen;
+  background-color: white;
 }
 
 .buttons-container {
@@ -14,7 +17,7 @@
   gap: min(20px, 10%);
   flex-wrap: wrap;
   margin-top: -10px;
-  width: 45%;
+  width: 40%;
 
   align-items: center;
 
@@ -23,11 +26,13 @@
 .slider-container{
   width: 45%;
   display: flex;
+  gap: 10%;
 }
 
 #elements-slider, #speed-slider {
-  width: 50%;
+  width: 55%;
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
 }
 
@@ -35,31 +40,34 @@
   height: 100px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  padding-top: 10px;
 }
 
-.p {
-  color: #FFFFFF;
-  font-size: 14px;
+p {
+  color: #b79147;
+  font-size: 20px;
   font-weight: 500;
-  margin: 0;
+  margin: 10px;
+  text-align: center;
 }
 
-.placeholder {
+.value-display {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
   height: 50px;
 }
 
 button {
-  background-color: #EA4C89;
+  background-color: #A51C30;
   border-radius: 8px;
   border-style: none;
 
   color: #FFFFFF;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 500;
-
-  line-height: 20px;
 
   margin: 0;
   outline: none;
@@ -67,18 +75,25 @@ button {
 
   text-align: center;
   text-decoration: none;
-  transition: color 100ms;
 
   touch-action: manipulation;
 
   margin-top: 10px;
+  height: 50px;
   max-height: 50px;
 
   font-family: inherit;
 
 }
 
+/* If the viewport size is less than 600px */
+@media (max-width: 600px) {
+  button {
+    font-size: 12px;
+  }
+}
+
 button:hover {
-  background-color: #F082AC;
+  background-color: #a51c31c5;
 }
 

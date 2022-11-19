@@ -22,7 +22,7 @@ function BarVisualizer() {
 
   const [sorted, setSorted] = useState(false);
 
-  const [animationDelay, setAnimationDelay] = useState(250);
+  const [animationDelay, setAnimationDelay] = useState(255);
 
   // componentDidMount eqv only 
   useEffect(function () {
@@ -118,7 +118,6 @@ function BarVisualizer() {
 
   return (
     <div className="BarVisualizer">
-      <h2>BarVisualizer.js</h2>
       <BarVisualizerToolbar
         numOfElements={numOfElements} 
         onElementsSliderChange={handleElementsSliderChange}
