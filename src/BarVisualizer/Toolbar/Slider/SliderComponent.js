@@ -22,8 +22,6 @@ function Slider(props) {
         onChange={handleSliderBarChange}
         renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
       />
-
-
     </div>
   )
 }
