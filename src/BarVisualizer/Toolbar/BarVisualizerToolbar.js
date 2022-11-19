@@ -22,9 +22,9 @@ function BarVisualizerToolbar(props) {
           </div>
           <Slider 
             usage="elements"
-            min={10}
-            max={100}
-            default={50}
+            min={props.minElements}
+            max={props.maxElements}
+            default={props.defaultElements}
             currentValue={props.numOfElements} 
             onSliderChange={props.onElementsSliderChange} 
           />
@@ -38,14 +38,14 @@ function BarVisualizerToolbar(props) {
           </div>
           <Slider 
             usage="speed"
-            min={10}
-            max={500}
-            default={255}
+            min={props.minDelay}
+            max={props.maxDelay}
+            default={props.defaultDelay}
             currentValue={props.currentDelay} 
             onSliderChange={props.onDelaySliderChange}
           />
           <div class="value-display">
-            <p>{`${Math.round((props.currentDelay - 10)/490 * 100)}%`}</p>
+            <p>{`${Math.round((props.currentDelay - props.minDelay)/(props.maxDelay - props.minDelay) * 100)}%`}</p>
           </div>
         </div>
       </div>

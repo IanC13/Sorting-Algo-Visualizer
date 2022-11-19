@@ -9,7 +9,6 @@ function Slider(props) {
     props.onSliderChange(value);
   }
 
-
   return (
     <div>
       <ReactSlider
@@ -18,7 +17,6 @@ function Slider(props) {
         thumbClassName="thumb"
         min={props.min}
         max={props.max}
-        defaultValue={props.default}
         value={props.currentValue}
         onChange={handleSliderBarChange}
         // renderThumb={(props, state) => 

@@ -5,10 +5,17 @@ import './BarVisualizer.css';
 
 import bubbleSort from '../Algorithms/BubbleSort';
 
+const MIN_DELAY = 1;
+const MAX_DELAY = 500;
+
+const MIN_NUMBER_OF_ELEMENTS = 10;
+const MAX_NUMBER_OF_ELEMENTS = 100;
+
 function BarVisualizer() {
   // Lifting the state up
   // Number of elements in the array 
-  const [numOfElements, setNumOfElements] = useState(50);
+  let defaultElements = (MIN_NUMBER_OF_ELEMENTS + MAX_NUMBER_OF_ELEMENTS) / 2;
+  const [numOfElements, setNumOfElements] = useState(defaultElements);
   
   // States
   // The array to be sorted
@@ -22,7 +29,8 @@ function BarVisualizer() {
 
   const [sorted, setSorted] = useState(false);
 
-  const [animationDelay, setAnimationDelay] = useState(255);
+  let defaultDelay = (MIN_DELAY + MAX_DELAY) / 2;
+  const [animationDelay, setAnimationDelay] = useState(defaultDelay);
 
   // componentDidMount eqv only 
   useEffect(function () {
@@ -49,7 +57,7 @@ function BarVisualizer() {
   }
 
   function calculateSpeed() {
-    return (-1 * animationDelay) + 510;
+    return (-1 * animationDelay) + MIN_DELAY + MAX_DELAY;
   }
 
   function bubbleSortFunction() {
@@ -122,9 +130,15 @@ function BarVisualizer() {
         numOfElements={numOfElements} 
         onElementsSliderChange={handleElementsSliderChange}
 
+        minDelay={MIN_DELAY}
+        maxDelay={MAX_DELAY}
+        defaultDelay={defaultDelay}
         currentDelay={animationDelay}
         onDelaySliderChange={handleDelaySliderChange}
 
+        minElements={MIN_NUMBER_OF_ELEMENTS}
+        maxElements={MAX_NUMBER_OF_ELEMENTS}
+        defaultElements={defaultElements}
         generateNewArray={newArray} 
         bubbleSort={bubbleSortFunction}
       />
