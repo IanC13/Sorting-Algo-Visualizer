@@ -17,7 +17,7 @@ function Slider(props) {
         thumbClassName="thumb"
         min={10}
         max={100}
-        defaultValue={10}
+        defaultValue={50}
         value={props.numOfElements}
         onChange={handleSliderBarChange}
         renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
