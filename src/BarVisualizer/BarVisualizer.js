@@ -30,6 +30,8 @@ function BarVisualizer() {
 
   const [sorted, setSorted] = useState(false);
 
+  const [sortedBars, setSortedBars] = useState([]);
+
   let defaultDelay = (MIN_DELAY + MAX_DELAY) / 2;
   const [animationDelay, setAnimationDelay] = useState(defaultDelay);
 
@@ -56,6 +58,7 @@ function BarVisualizer() {
     setCurrentBars([]);
     setSpecial([]);
     setSorted(false);
+    setSortedBars([]);
   }
 
   function calculateDelay() {
@@ -63,12 +66,12 @@ function BarVisualizer() {
   }
 
   function bubbleSortFunction() {
-    bubbleSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setArray, setSorted);
+    bubbleSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setArray, setSorted, setSortedBars);
   }
 
   function selectionSortFunction() {
     console.log('selectionSortFunction');
-    selectionSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setArray, setSorted);
+    selectionSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setArray, setSorted, setSortedBars);
   }
 
   function handleElementsSliderChange(value) {
@@ -106,6 +109,7 @@ function BarVisualizer() {
         currentBars={currentBars}
         specialBar={specialBar}
         sorted={sorted}
+        sortedBars={sortedBars}
       />
     </div>
   );

@@ -1,7 +1,7 @@
-function bubbleSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setArray, setSorted) {
+function bubbleSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setArray, setSorted, setSortedBars) {
   let delay = calculateDelay();
 
-  let {allArrayStates, animations, largerArray} = bubbleSort(array);
+  let {allArrayStates, animations, largerArray, sortedBars} = bubbleSort(array);
 
   const length = animations.length;
 
@@ -31,6 +31,7 @@ function bubbleSortHelper(array, calculateDelay, setCurrentBars, setSpecial, set
 
       // reset swapped bars to be same color
       setSpecial();
+      setSortedBars(sortedBars[i]);
       
       // Check if it is sorted
       if (i === length - 1){
@@ -71,6 +72,8 @@ function bubbleSort(array) {
   // holds index of the larger element for each comparison
   let largerArray = [];
 
+  let sortedBars = [[]];
+
   for (let i = 0; i < length; i++) {
     let swap = false;
 
@@ -89,6 +92,17 @@ function bubbleSort(array) {
 
       animations.push([j, j+1]);
       allArrayStates.push([...newArray]);
+      
+      if (j !== length - 1 - i - 1) {
+        let element = sortedBars[sortedBars.length - 1];
+        sortedBars.push(element);
+      }
+    }
+
+    // At this point, the last i+1 bars will be sorted
+    sortedBars.push([]);
+    for (let k = 0; k < i+1; k++) {
+      sortedBars[sortedBars.length - 1].push(length - 1 - k);
     }
 
     if (swap === false) {
@@ -96,7 +110,7 @@ function bubbleSort(array) {
     }
   }
 
-  return { allArrayStates, animations, largerArray };
+  return { allArrayStates, animations, largerArray, sortedBars };
 }
 
 

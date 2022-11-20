@@ -29,11 +29,11 @@ function BarVisualizerBody(props) {
           // Making of the bars
           style={ { height: `${(value/Math.max(...props.array)) * 100}%`,
                     width: `${100/(props.numOfElements + numOfSpaces)}%`,
-                    // currentBars hold the 2 bars that we are comparing. change colors accordingly
                     backgroundColor: (props.sorted === true ? SORTED_COLOR : 
-                                      (id === props.specialBar ? SPECIAL_COLOR : 
-                                      (id === props.currentBars[0] || id === props.currentBars[1]) ? HIGHLIGHT_COLOR : 
-                                      DEFAULT_COLOR)) 
+                                     (props.sortedBars.includes(id) ? SORTED_COLOR :
+                                     (id === props.specialBar ? SPECIAL_COLOR : 
+                                     (id === props.currentBars[0] || id === props.currentBars[1]) ? HIGHLIGHT_COLOR : 
+                                     DEFAULT_COLOR)))
                 } }
         >
         </div>

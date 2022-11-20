@@ -1,4 +1,4 @@
-function selectionSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setArray, setSorted) {
+function selectionSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setArray, setSorted, setSortedBars) {
   console.log('selectionSortHelper')
 
   let delay = calculateDelay();
@@ -19,10 +19,11 @@ function selectionSortHelper(array, calculateDelay, setCurrentBars, setSpecial, 
       }, smallerDelay)
       
       setTimeout(() => {
+        // Not swapped yet
         if (allArrayStates[i][allArrayStates[i].length-1] === false) {
           setArray(allArrayStates[i].slice(0, -1))
-
         } else {
+          // Swapped - one more element in place
           setCurrentBars([])
           setSpecial()
           setArray(allArrayStates[i].slice(0, -1))
