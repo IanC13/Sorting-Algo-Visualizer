@@ -72,7 +72,10 @@ function bubbleSort(array) {
   // holds index of the larger element for each comparison
   let largerArray = [];
 
+  // Holds the index of the sorted bars as a 2d array
   let sortedBars = [[]];
+  // (if array.length === 10), takes the form of => 
+  // [[], ... , [], [9], ... , [9], [9, 8], ... ,[9, 8], ...]
 
   for (let i = 0; i < length; i++) {
     let swap = false;
@@ -93,14 +96,20 @@ function bubbleSort(array) {
       animations.push([j, j+1]);
       allArrayStates.push([...newArray]);
       
+      // We render using sortedBars[i]. On some re renders (when other state changes)
+      // We want to render the same sortedBars, so when there is no new sorted element
+      // We just push the previous state so renders are the same
       if (j !== length - 1 - i - 1) {
         sortedBars.push(sortedBars[sortedBars.length - 1]);
       }
     }
 
     // At this point, the last i+1 bars will be sorted
+    // Push a new sub array into sortedBars
     sortedBars.push([]);
     for (let k = 0; k < i+1; k++) {
+      // The last (length - 1 - i) to (length - 1) bars are sorted
+      // push these indices in the new subarray
       sortedBars[sortedBars.length - 1].push(length - 1 - k);
     }
 

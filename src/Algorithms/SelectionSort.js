@@ -29,7 +29,7 @@ function selectionSortHelper(array, calculateDelay, setCurrentBars, setSpecial, 
       }, swapDelay)
       
       setSortedBars(sortedBars[i]);
-      
+
       // Check if it is sorted
       if (i === animationsLength - 1){
         // re render to sorted color
@@ -51,6 +51,7 @@ function selectionSort(array) {
 
   let currentSmallest = [];
 
+  // See BubbleSort.js for implementation detail
   let sortedBars = [[]];
 
   for (let i = 0; i < length; i++) {
