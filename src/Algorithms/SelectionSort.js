@@ -1,9 +1,7 @@
 function selectionSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setArray, setSorted, setSortedBars) {
-  console.log('selectionSortHelper')
-
   let delay = calculateDelay();
 
-  let {allArrayStates, animations, currentSmallest} = selectionSort(array);
+  let {allArrayStates, animations, currentSmallest, sortedBars} = selectionSort(array);
 
   let animationsLength = animations.length;
 
@@ -29,7 +27,9 @@ function selectionSortHelper(array, calculateDelay, setCurrentBars, setSpecial, 
           setArray(allArrayStates[i].slice(0, -1))
         }
       }, swapDelay)
-
+      
+      setSortedBars(sortedBars[i]);
+      
       // Check if it is sorted
       if (i === animationsLength - 1){
         // re render to sorted color
@@ -51,11 +51,10 @@ function selectionSort(array) {
 
   let currentSmallest = [];
 
+  let sortedBars = [[]];
+
   for (let i = 0; i < length; i++) {
     let minIdx = i;
-    //ithElement.push(i);
-    // animations.push([]);
-    // currentSmallest.push([]);
 
     for (let j = i+1; j < length; j++) {
       animations.push([minIdx, j]);
@@ -67,6 +66,8 @@ function selectionSort(array) {
       if (j !== length - 1) {
         // false for non swapping state change
         allArrayStates.push([...newArray, false]);
+
+        sortedBars.push(sortedBars[sortedBars.length - 1]);
       }
     }
 
@@ -76,9 +77,15 @@ function selectionSort(array) {
 
     // state change with a swap
     allArrayStates.push([...newArray, true]);
+
+    // point where one more bar is sorted
+    sortedBars.push([]);
+    for (let k = 0; k < i+1; k++) {
+      sortedBars[sortedBars.length - 1].push(k);
+    }
   }
 
-  return { allArrayStates, animations, currentSmallest }
+  return { allArrayStates, animations, currentSmallest, sortedBars }
 }
 
 

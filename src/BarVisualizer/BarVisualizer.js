@@ -70,7 +70,6 @@ function BarVisualizer() {
   }
 
   function selectionSortFunction() {
-    console.log('selectionSortFunction');
     selectionSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setArray, setSorted, setSortedBars);
   }
 

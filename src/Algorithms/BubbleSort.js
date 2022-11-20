@@ -94,8 +94,7 @@ function bubbleSort(array) {
       allArrayStates.push([...newArray]);
       
       if (j !== length - 1 - i - 1) {
-        let element = sortedBars[sortedBars.length - 1];
-        sortedBars.push(element);
+        sortedBars.push(sortedBars[sortedBars.length - 1]);
       }
     }
 
@@ -105,6 +104,7 @@ function bubbleSort(array) {
       sortedBars[sortedBars.length - 1].push(length - 1 - k);
     }
 
+    // Bubble sort optimization
     if (swap === false) {
       break;
     }
