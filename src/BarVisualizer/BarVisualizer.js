@@ -4,6 +4,7 @@ import BarVisualizerToolbar from './Toolbar/BarVisualizerToolbar';
 import './BarVisualizer.css';
 
 import bubbleSortHelper from '../Algorithms/BubbleSort';
+import selectionSortHelper from '../Algorithms/SelectionSort';
 
 const MIN_DELAY = 1;
 const MAX_DELAY = 500;
@@ -25,7 +26,7 @@ function BarVisualizer() {
   const [currentBars, setCurrentBars] = useState([]);
 
   // Larger of the comparisons
-  const [largerBar, setLarger] = useState();
+  const [specialBar, setSpecial] = useState();
 
   const [sorted, setSorted] = useState(false);
 
@@ -53,20 +54,21 @@ function BarVisualizer() {
     // Set array state
     setArray(tempArray);
     setCurrentBars([]);
-    setLarger([]);
+    setSpecial([]);
     setSorted(false);
   }
 
-  function calculateSpeed() {
+  function calculateDelay() {
     return (-1 * animationDelay) + MIN_DELAY + MAX_DELAY;
   }
 
   function bubbleSortFunction() {
-    bubbleSortHelper(array, calculateSpeed, setCurrentBars, setLarger, setArray, setSorted);
+    bubbleSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setArray, setSorted);
   }
 
   function selectionSortFunction() {
     console.log('selectionSortFunction');
+    selectionSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setArray, setSorted);
   }
 
   function handleElementsSliderChange(value) {
@@ -102,7 +104,7 @@ function BarVisualizer() {
         numOfElements={numOfElements} 
         array={array}
         currentBars={currentBars}
-        largerBar={largerBar}
+        specialBar={specialBar}
         sorted={sorted}
       />
     </div>
