@@ -65,6 +65,10 @@ function BarVisualizer() {
     bubbleSortHelper(array, calculateSpeed, setCurrentBars, setLarger, setArray, setSorted);
   }
 
+  function selectionSortFunction() {
+    console.log('selectionSortFunction');
+  }
+
   function handleElementsSliderChange(value) {
     setNumOfElements(value);
   }
@@ -89,7 +93,9 @@ function BarVisualizer() {
         maxElements={MAX_NUMBER_OF_ELEMENTS}
         defaultElements={defaultElements}
         generateNewArray={newArray} 
+        
         bubbleSort={bubbleSortFunction}
+        selectionSort={selectionSortFunction}
       />
 
       <BarVisualizerBody 
