@@ -5,11 +5,12 @@ import './BarVisualizer.css';
 
 import bubbleSortHelper from '../Algorithms/BubbleSort';
 import selectionSortHelper from '../Algorithms/SelectionSort';
+import mergeSortHelper from '../Algorithms/MergeSort';
 
 const MIN_DELAY = 1;
-const MAX_DELAY = 500;
+const MAX_DELAY = 300;
 
-const MIN_NUMBER_OF_ELEMENTS = 10;
+const MIN_NUMBER_OF_ELEMENTS = 4;
 const MAX_NUMBER_OF_ELEMENTS = 100;
 
 function BarVisualizer() {
@@ -31,6 +32,8 @@ function BarVisualizer() {
   const [sorted, setSorted] = useState(false);
 
   const [sortedBars, setSortedBars] = useState([]);
+
+  const [greyOutBars, setGreyOutBars] = useState([]);
 
   let defaultDelay = (MIN_DELAY + MAX_DELAY) / 2;
   const [animationDelay, setAnimationDelay] = useState(defaultDelay);
@@ -75,6 +78,7 @@ function BarVisualizer() {
 
   function mergeSortFunction() {
     console.log('mergeSortFunction');
+    mergeSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setArray, setSorted, setSortedBars, setGreyOutBars);
   }
 
   function handleElementsSliderChange(value) {
@@ -114,6 +118,7 @@ function BarVisualizer() {
         specialBar={specialBar}
         sorted={sorted}
         sortedBars={sortedBars}
+        greyOutBars={greyOutBars}
       />
     </div>
   );
