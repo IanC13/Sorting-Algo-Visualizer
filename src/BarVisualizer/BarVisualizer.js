@@ -73,6 +73,10 @@ function BarVisualizer() {
     selectionSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setArray, setSorted, setSortedBars);
   }
 
+  function mergeSortFunction() {
+    console.log('mergeSortFunction');
+  }
+
   function handleElementsSliderChange(value) {
     setNumOfElements(value);
   }
@@ -100,6 +104,7 @@ function BarVisualizer() {
         
         bubbleSort={bubbleSortFunction}
         selectionSort={selectionSortFunction}
+        mergeSort={mergeSortFunction}
       />
 
       <BarVisualizerBody 
