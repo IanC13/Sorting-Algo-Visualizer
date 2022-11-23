@@ -5,23 +5,36 @@ function mergeSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setA
 
   let newArray = array.slice();
   let length = newArray.length;
-
-  
-  // let {allArrayStates, animations, currentSmallest, sortedBars}
   
   let allArrayStates = [];
   let greyOutBars = [];
   let animations = [];
+
+  console.log(newArray);
   
   ({ allArrayStates, animations } = mergeSort(newArray, 0, length-1, allArrayStates, animations) );
   
   console.log(allArrayStates);
+  console.log(allArrayStates.length);
+  console.log(animations);
+  console.log(animations.length);
+
 
   for (let i = 0; i < allArrayStates.length; i++) {
     setTimeout(() => {
-      setArray(allArrayStates[i]);
-      // setGreyOutBars(greyOutBars[i]);
-    }, i * delay)
+      setTimeout(() => {
+        setCurrentBars(animations[i]);
+      }, delay)
+      
+      setTimeout(() => {
+        setArray(allArrayStates[i]);
+      }, 2 * delay)
+      
+      if (i === allArrayStates.length -1) {
+        setSorted(true);
+      }
+      
+    }, i * (delay + 2 * delay))
   }
 }
 
@@ -97,24 +110,27 @@ function merge(array, leftIdx, midIdx, rightIdx, allArrayStates, animations) {
     rightArray[j] = array[midIdx + 1 + j];
   }
 
-  console.log(leftArray);
-  console.log(rightArray);
-
   // Looping index
   let l = 0; // left array
   let r = 0; // right array
   let a = leftIdx; // merged array
 
+  // Tracks how many times we've shifter
+  let shiftCount = 0;
+
   while (l < lLength && r < rLength) {
     // highlight comparing bars
-    animations.push([leftIdx + l, rightIdx + r]);
     // highlight insertion position (a)
-    if (leftArray[l] < rightArray[r]) {
+    animations.push([leftIdx + l + shiftCount, midIdx + 1 + r]);
+    if (leftArray[l] < rightArray[r]) {      
       array[a] = leftArray[l];
       l += 1;
     } else {
+
+      shiftCount += 1;
+
       // When the element on the right array is larger, we want to 
-      // insert that element to position a while preserving the elements
+      // insert that element to position 'a' while preserving the elements
       // in the left array that is larger than this.
       // Therefore we shift the entire array instead of just swapping it: [2, 8, 5, 6] -> [2, 5, 8, 6]
       // Just swapping it works in algorithm as we have a copy of left and right
@@ -126,7 +142,6 @@ function merge(array, leftIdx, midIdx, rightIdx, allArrayStates, animations) {
       array[a] = tmp;
       r += 1;
     }
-    // console.log('here2',array);
     allArrayStates.push([...array]);
     
     a += 1;
@@ -135,9 +150,10 @@ function merge(array, leftIdx, midIdx, rightIdx, allArrayStates, animations) {
   // At this point, all values from either the left or the right array is 
   // copied into array. As we know left and right arrays themselves are
   // sorted, we just add the rest of the not copied array to the end
+  animations.push([]);
   while (l < lLength) {
+    animations[animations.length -1].push(leftIdx + l + shiftCount);
     // highlight insertion bar (l)
-    animations.push([leftIdx + l]);
     // highlight insertion position (a)
     array[a] = leftArray[l];
     a += 1;
@@ -145,14 +161,13 @@ function merge(array, leftIdx, midIdx, rightIdx, allArrayStates, animations) {
   }
 
   while (r < rLength) {
+    animations[animations.length -1].push(midIdx + 1 + r);
     // highlight insertion bar (r)
-    animations.push([rightIdx + r]);
     // highlight insertion position (a)
     array[a] = rightArray[r];
     a += 1;
     r += 1;
   }
-  // console.log('here3',array);
   allArrayStates.push([...array]);
 
   return { allArrayStates, animations };
