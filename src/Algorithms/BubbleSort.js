@@ -2,7 +2,7 @@ function bubbleSortHelper(array, calculateDelay, setCurrentBars, setSpecial, set
   let delay = calculateDelay();
 
   let {allArrayStates, animations, largerArray, sortedBars} = bubbleSort(array);
-  console.log(allArrayStates);
+
   const length = animations.length;
 
   // Delay from 2 same color highlighted bar to larger one highlighted with a different color

@@ -5,50 +5,62 @@ function mergeSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setA
 
   let newArray = array.slice();
   let length = newArray.length;
+
+  // Used to determine when to highlight bars as sorted
+  // Last call to function merge(...), sorts the array in final position
+  // at this call, callDepth === 1
+  let callDepth = 0;
   
   let allArrayStates = [];
-  let greyOutBars = [];
   let animations = [];
   let currentSmallest = [];
+  let sortedBars = [[]];
+  let greyOutBars = [];
 
-  console.log(newArray);
-  
-  ({ allArrayStates, animations, currentSmallest } = mergeSort(newArray, 0, length-1, allArrayStates, animations, currentSmallest) );
-  
-  console.log(allArrayStates);
-  console.log(allArrayStates.length);
-  console.log(animations);
-  console.log(animations.length);
-  console.log(currentSmallest[0][1]);
-  console.log(currentSmallest.length);
 
+  ({ allArrayStates, animations, currentSmallest, sortedBars } = mergeSort(newArray, 0, length-1, allArrayStates, animations, currentSmallest, sortedBars, callDepth) );
 
   for (let i = 0; i < allArrayStates.length; i++) {
     setTimeout(() => {
+      // Color bars under comparison
       setTimeout(() => {
         setCurrentBars(animations[i]);
       }, delay)
       
+      // color the smaller of the two
       setTimeout(() => {
-        setSpecial(currentSmallest[i][0]);
+        // Don't color if bars are moving into final position
+        if (allArrayStates[i][allArrayStates[i].length-1] === false) {
+          setSpecial(currentSmallest[i][0]);
+        }
       }, 2 * delay)
       
+      // Swap bars
       setTimeout(() => {
-        setArray(allArrayStates[i]);
-        setSpecial(currentSmallest[i][1]);
+        setArray(allArrayStates[i].slice(0, -1));
+        
+        if (allArrayStates[i][allArrayStates[i].length-1] === true) {
+          setSortedBars(sortedBars[i]);
+        } else {
+          // === false
+          /// From above, if === false, it will color. do the same here
+          setSpecial(currentSmallest[i][1]);
+        }
+       
       }, 3 * delay)
       
       if (i === allArrayStates.length -1) {
         setSorted(true);
       }
 
-      setSpecial();
+      //setSpecial();
       
     }, i * (delay + 2 * delay + 3 * delay))
   }
 }
 
-function mergeSort(array, leftIdx, rightIdx, allArrayStates, animations, currentSmallest) {
+function mergeSort(array, leftIdx, rightIdx, allArrayStates, animations, currentSmallest, sortedBars, callDepth) {
+  callDepth += 1;
   
   if (leftIdx < rightIdx) {
     // Find middle of array
@@ -62,7 +74,7 @@ function mergeSort(array, leftIdx, rightIdx, allArrayStates, animations, current
     // }
 
     // Recursively call mergeSort on each part
-    mergeSort(array, leftIdx, midIdx, allArrayStates, animations, currentSmallest);
+    mergeSort(array, leftIdx, midIdx, allArrayStates, animations, currentSmallest, sortedBars, callDepth);
 
     // grey left array and ungrey right array
     // let tmpArray = greyOutBars[greyOutBars.length -1];
@@ -75,7 +87,7 @@ function mergeSort(array, leftIdx, rightIdx, allArrayStates, animations, current
     //   greyOutBars[greyOutBars.length -1].push(i);
     // }
 
-    mergeSort(array, midIdx + 1, rightIdx, allArrayStates, animations, currentSmallest);
+    mergeSort(array, midIdx + 1, rightIdx, allArrayStates, animations, currentSmallest, sortedBars, callDepth);
 
     // At this point on every recursive call, we have 2 sorted arrays 
     // Merge them two together
@@ -88,21 +100,21 @@ function mergeSort(array, leftIdx, rightIdx, allArrayStates, animations, current
     // }
     // greyOutBars.push(tmpArray)
 
-    merge(array, leftIdx, midIdx, rightIdx, allArrayStates, animations, currentSmallest);
+    merge(array, leftIdx, midIdx, rightIdx, allArrayStates, animations, currentSmallest, sortedBars, callDepth);
   }
-
+  
   // grey out single array
   // if (leftIdx >= rightIdx) {
-  //   let oldGrey = greyOutBars[greyOutBars.length-1]
-  //   greyOutBars.push(oldGrey.slice());
-  //   greyOutBars[greyOutBars.length-1].push(leftIdx);
-  // }
-  return { allArrayStates, animations, currentSmallest };
-} 
-
-// array is initial array
-function merge(array, leftIdx, midIdx, rightIdx, allArrayStates, animations, currentSmallest) {
-
+    //   let oldGrey = greyOutBars[greyOutBars.length-1]
+    //   greyOutBars.push(oldGrey.slice());
+    //   greyOutBars[greyOutBars.length-1].push(leftIdx);
+    // }
+    return { allArrayStates, animations, currentSmallest, sortedBars };
+  } 
+  
+  // array is initial array
+  function merge(array, leftIdx, midIdx, rightIdx, allArrayStates, animations, currentSmallest, sortedBars, callDepth) {
+  
   // Lengths of left and right array
   let lLength = midIdx - leftIdx + 1;
   let rLength = rightIdx - midIdx;
@@ -161,7 +173,17 @@ function merge(array, leftIdx, midIdx, rightIdx, allArrayStates, animations, cur
       array[a] = tmp;
       r += 1;
     }
-    allArrayStates.push([...array]);
+    
+    if (callDepth === 1) {
+      allArrayStates.push([...array, true]);
+      sortedBars.push([]);
+      for (let i = 0; i <= a; i++) {
+        sortedBars[sortedBars.length - 1].push(i)
+      }
+    } else {
+      allArrayStates.push([...array, false]);
+      sortedBars.push(sortedBars[sortedBars.length - 1]);
+    }
     
     a += 1;
   }
@@ -170,7 +192,7 @@ function merge(array, leftIdx, midIdx, rightIdx, allArrayStates, animations, cur
   // copied into array. As we know left and right arrays themselves are
   // sorted, we just add the rest of the not copied array to the end
   animations.push([]);
-currentSmallest.push([-1, -1]);
+  currentSmallest.push([-1, -1]);
   while (l < lLength) {
     animations[animations.length -1].push(leftIdx + l + shiftCount);
     // highlight insertion bar (l)
@@ -188,9 +210,19 @@ currentSmallest.push([-1, -1]);
     a += 1;
     r += 1;
   }
-  allArrayStates.push([...array]);
+ 
+  if (callDepth === 1) {
+    allArrayStates.push([...array, true]);
+    sortedBars.push([]);
+    for (let i = 0; i <= a; i++) {
+      sortedBars[sortedBars.length - 1].push(i)
+    }
+  } else {
+    allArrayStates.push([...array, false]);
+    sortedBars.push(sortedBars[sortedBars.length - 1]);
+  }
 
-  return { allArrayStates, animations, currentSmallest };
+  return { allArrayStates, animations, currentSmallest, sortedBars };
 }
 
 export default mergeSortHelper;

@@ -33,9 +33,9 @@ function BarVisualizerBody(props) {
                     backgroundColor: (props.sorted === true ? SORTED_COLOR : 
                                      (props.sortedBars.includes(id) ? SORTED_COLOR :
                                      (id === props.specialBar ? SPECIAL_COLOR : 
-                                     //(props.greyOutBars.includes(id) ? GREY_OUT :
+                                     (props.greyOutBars.includes(id) ? GREY_OUT :
                                      (props.currentBars.includes(id)) ? HIGHLIGHT_COLOR : 
-                                     DEFAULT_COLOR)))//)
+                                     DEFAULT_COLOR))))
                 } }
         >
         </div>
