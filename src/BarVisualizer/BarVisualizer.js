@@ -93,7 +93,6 @@ function BarVisualizer() {
   }
 
   function mergeSortFunction() {
-    console.log('mergeSortFunction');
     mergeSortHelper(
         array, 
         calculateDelay, 
