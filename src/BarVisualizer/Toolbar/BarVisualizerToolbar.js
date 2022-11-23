@@ -8,10 +8,26 @@ function BarVisualizerToolbar(props) {
   return (
     <div class='toolbar-container'>
       <div class="buttons-container">
-        <button onClick={() => props.generateNewArray(props.numOfElements)}>Randomize Array</button>
-        <button onClick={props.bubbleSort}>Bubble Sort</button>
-        <button onClick={props.selectionSort}>Selection Sort</button>
-        <button id='merge-sort-button' onClick={props.mergeSort}>Merge Sort</button>
+        <button 
+          onClick={() => 
+            props.generateNewArray(props.numOfElements)}> 
+          Randomize Array
+        </button>
+
+        <button onClick={props.bubbleSort}>
+          Bubble Sort
+        </button>
+
+        <button onClick={props.selectionSort}>
+          Selection Sort
+        </button>
+
+        <button 
+          id='merge-sort-button' 
+          onClick={props.mergeSort}
+        >
+          Merge Sort
+        </button>
       </div>
 
 
@@ -45,11 +61,13 @@ function BarVisualizerToolbar(props) {
             onSliderChange={props.onDelaySliderChange}
           />
           <div class="value-display">
-            <p>{`${Math.round((props.currentDelay - props.minDelay)/(props.maxDelay - props.minDelay) * 100)}%`}</p>
+            <p>
+              {`${Math.round((props.currentDelay - props.minDelay) /
+                  (props.maxDelay - props.minDelay) * 100)}%`}
+            </p>
           </div>
         </div>
       </div>
-
     </div>
   );
 }

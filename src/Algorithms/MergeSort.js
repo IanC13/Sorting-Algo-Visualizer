@@ -1,4 +1,13 @@
-function mergeSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setArray, setSorted, setSortedBars, setGreyOutBars) {
+function mergeSortHelper(
+    array, 
+    calculateDelay, 
+    setCurrentBars, 
+    setSpecial, 
+    setArray, 
+    setSorted, 
+    setSortedBars, 
+    setGreyOutBars) {
+
   console.log('mergeSortHelper');
   
   let delay = calculateDelay();
@@ -18,7 +27,18 @@ function mergeSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setA
   let greyOutBars = [];
 
 
-  ({ allArrayStates, animations, currentSmallest, sortedBars } = mergeSort(newArray, 0, length-1, allArrayStates, animations, currentSmallest, sortedBars, callDepth) );
+  ({allArrayStates, animations, currentSmallest, sortedBars} = 
+        mergeSort(
+            newArray, 
+            /* start Index */ 0, 
+            /* End Index */ length-1, 
+            allArrayStates, 
+            animations, 
+            currentSmallest, 
+            sortedBars, 
+            callDepth
+        )
+  );
 
   for (let i = 0; i < allArrayStates.length; i++) {
     setTimeout(() => {
@@ -59,7 +79,16 @@ function mergeSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setA
   }
 }
 
-function mergeSort(array, leftIdx, rightIdx, allArrayStates, animations, currentSmallest, sortedBars, callDepth) {
+function mergeSort(
+    array, 
+    leftIdx, 
+    rightIdx, 
+    allArrayStates, 
+    animations, 
+    currentSmallest, 
+    sortedBars, 
+    callDepth) {
+      
   callDepth += 1;
   
   if (leftIdx < rightIdx) {
@@ -74,7 +103,15 @@ function mergeSort(array, leftIdx, rightIdx, allArrayStates, animations, current
     // }
 
     // Recursively call mergeSort on each part
-    mergeSort(array, leftIdx, midIdx, allArrayStates, animations, currentSmallest, sortedBars, callDepth);
+    mergeSort(
+        array, 
+        leftIdx, midIdx, 
+        allArrayStates, 
+        animations, 
+        currentSmallest, 
+        sortedBars, 
+        callDepth
+    );
 
     // grey left array and ungrey right array
     // let tmpArray = greyOutBars[greyOutBars.length -1];
@@ -87,7 +124,16 @@ function mergeSort(array, leftIdx, rightIdx, allArrayStates, animations, current
     //   greyOutBars[greyOutBars.length -1].push(i);
     // }
 
-    mergeSort(array, midIdx + 1, rightIdx, allArrayStates, animations, currentSmallest, sortedBars, callDepth);
+    mergeSort(
+        array, 
+        midIdx + 1, 
+        rightIdx, 
+        allArrayStates, 
+        animations, 
+        currentSmallest, 
+        sortedBars, 
+        callDepth
+    );
 
     // At this point on every recursive call, we have 2 sorted arrays 
     // Merge them two together
@@ -100,7 +146,17 @@ function mergeSort(array, leftIdx, rightIdx, allArrayStates, animations, current
     // }
     // greyOutBars.push(tmpArray)
 
-    merge(array, leftIdx, midIdx, rightIdx, allArrayStates, animations, currentSmallest, sortedBars, callDepth);
+    merge(
+        array, 
+        leftIdx, 
+        midIdx, 
+        rightIdx, 
+        allArrayStates, 
+        animations, 
+        currentSmallest, 
+        sortedBars, 
+        callDepth
+    );
   }
   
   // grey out single array
@@ -113,7 +169,16 @@ function mergeSort(array, leftIdx, rightIdx, allArrayStates, animations, current
   } 
   
   // array is initial array
-  function merge(array, leftIdx, midIdx, rightIdx, allArrayStates, animations, currentSmallest, sortedBars, callDepth) {
+  function merge(
+      array, 
+      leftIdx, 
+      midIdx, 
+      rightIdx, 
+      allArrayStates, 
+      animations, 
+      currentSmallest, 
+      sortedBars, 
+      callDepth) {
   
   // Lengths of left and right array
   let lLength = midIdx - leftIdx + 1;
@@ -146,11 +211,14 @@ function mergeSort(array, leftIdx, rightIdx, allArrayStates, animations, current
     animations.push([leftIdx + l + shiftCount, midIdx + 1 + r]);
 
     if (leftArray[l] < rightArray[r]) {
-      // Push a sub array of size 2 as we want to color the correct bar before and after swapping
-      // before colored = currentSmallest[i][0], after swapping, colored = currentSmallest[i][1]      
-      // when left is smaller, no position swap so same bar is colored
-      currentSmallest.push([leftIdx + l + shiftCount, leftIdx + l + shiftCount]);
-
+      /*
+       * Push a sub array of size 2 as we want to color the correct bar before 
+       * and after swapping before colored = currentSmallest[i][0], after 
+       * swapping, colored = currentSmallest[i][1] when left is smaller, no 
+       * position swap so same bar is colored
+       * currentSmallest.push(
+       *     [leftIdx + l + shiftCount, leftIdx + l + shiftCount]);
+       */
       array[a] = leftArray[l];
       l += 1;
     } else {
@@ -160,11 +228,15 @@ function mergeSort(array, leftIdx, rightIdx, allArrayStates, animations, current
       currentSmallest.push([midIdx + 1 + r, leftIdx + l + shiftCount]);
       shiftCount += 1;
 
-      // When the element on the right array is larger, we want to 
-      // insert that element to position 'a' while preserving the elements
-      // in the left array that is larger than this.
-      // Therefore we shift the entire array instead of just swapping it: [2, 8, 5, 6] -> [2, 5, 8, 6]
-      // Just swapping it works in algorithm as we have a copy of left and right
+      /*
+       * When the element on the right array is larger, we want to 
+       * insert that element to position 'a' while preserving the elements
+       * in the left array that is larger than this.
+       * Therefore we shift the entire array instead of just swapping it: 
+       * [2, 8, 5, 6] -> [2, 5, 8, 6]
+       * Just swapping it works in algorithm as we have a copy of left and right
+       */
+
       let tmp = rightArray[r];
 
       for (let i = midIdx + 1 + r; i > a; i--) {

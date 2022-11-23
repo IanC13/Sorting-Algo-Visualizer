@@ -1,7 +1,18 @@
-function selectionSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setArray, setSorted, setSortedBars) {
+function selectionSortHelper(
+    array, 
+    calculateDelay, 
+    setCurrentBars, 
+    setSpecial, 
+    setArray, 
+    setSorted, 
+    setSortedBars) {
   let delay = calculateDelay();
 
-  let {allArrayStates, animations, currentSmallest, sortedBars} = selectionSort(array);
+  let { allArrayStates, 
+        animations, 
+        currentSmallest, 
+        sortedBars
+      } = selectionSort(array);
 
   let animationsLength = animations.length;
 

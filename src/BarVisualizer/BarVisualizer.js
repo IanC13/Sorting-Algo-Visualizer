@@ -69,16 +69,40 @@ function BarVisualizer() {
   }
 
   function bubbleSortFunction() {
-    bubbleSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setArray, setSorted, setSortedBars);
+    bubbleSortHelper(
+        array, 
+        calculateDelay, 
+        setCurrentBars, 
+        setSpecial, 
+        setArray, 
+        setSorted, 
+        setSortedBars
+    );
   }
 
   function selectionSortFunction() {
-    selectionSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setArray, setSorted, setSortedBars);
+    selectionSortHelper(
+        array, 
+        calculateDelay, 
+        setCurrentBars, 
+        setSpecial, 
+        setArray, 
+        setSorted, 
+        setSortedBars
+    );
   }
 
   function mergeSortFunction() {
     console.log('mergeSortFunction');
-    mergeSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setArray, setSorted, setSortedBars, setGreyOutBars);
+    mergeSortHelper(
+        array, 
+        calculateDelay, 
+        setCurrentBars, 
+        setSpecial, 
+        setArray, 
+        setSorted, 
+        
+    setSortedBars, setGreyOutBars);
   }
 
   function handleElementsSliderChange(value) {

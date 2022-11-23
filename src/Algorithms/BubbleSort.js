@@ -1,22 +1,30 @@
-function bubbleSortHelper(array, calculateDelay, setCurrentBars, setSpecial, setArray, setSorted, setSortedBars) {
+function bubbleSortHelper(
+    array, 
+    calculateDelay, 
+    setCurrentBars, 
+    setSpecial, 
+    setArray, 
+    setSorted, 
+    setSortedBars) {
   let delay = calculateDelay();
 
   let {allArrayStates, animations, largerArray, sortedBars} = bubbleSort(array);
 
   const length = animations.length;
 
-  // Delay from 2 same color highlighted bar to larger one highlighted with a different color
+  // Delay from highlighted bar to larger one highlighted with a different color
   let largerColorDelay = delay;
   // Delay from 2 differently highlighted bar to swapping
   let swapDelay = largerColorDelay + delay;
 
   for (let i = 0; i < length; i++) {
     setTimeout(() => {
-      // Current 2 bars we are comparing. state change so re renders which trigger 
-      // the color change
+      // Current 2 bars we are comparing. state change so re renders which 
+      // trigger the color change
       setCurrentBars(animations[i]);
       
-      // highlight the 2 comparing bars for some time before coloring the larger one 
+      // highlight the 2 comparing bars for some time before coloring the larger 
+      // one 
       setTimeout(() => {
         // larger of the two, re render with a different color
         setSpecial(largerArray[i][0]);
@@ -96,9 +104,12 @@ function bubbleSort(array) {
       animations.push([j, j+1]);
       allArrayStates.push([...newArray]);
       
-      // We render using sortedBars[i]. On some re renders (when other state changes)
-      // We want to render the same sortedBars, so when there is no new sorted element
-      // We just push the previous state so renders are the same
+      /*
+       * We render using sortedBars[i]. On some re renders (when other state 
+       * changes) we want to render the same sortedBars, so when there is no new 
+       * sorted element. We just push the previous state so renders are the same
+       */
+      
       if (j !== length - 1 - i - 1) {
         sortedBars.push(sortedBars[sortedBars.length - 1]);
       }

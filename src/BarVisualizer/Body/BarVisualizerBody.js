@@ -16,11 +16,14 @@ function BarVisualizerBody(props) {
   return (
     <div
       className='array-container'
-      // Gap and bar width is the same rn
-      // the width is a percentage of the container where each percentage = 100(%)/(bars + spaces) %
+      // Gap and bar width is the same 
+      // the width is a percentage of the container where each percentage = 
+      // 100(%)/(bars + spaces) %
       style={ { gap: `${100/(props.numOfElements + numOfSpaces)}%`,
-                // Decrease display area if numOfElements < 30 so that the bars aren't unbearably huge 
-                padding: (props.numOfElements < 30) ? `${0}% ${20}% ${0}% ${20}%` : `inherit`
+                // Decrease display area if numOfElements < 30 so that the bars 
+                // aren't unbearably huge 
+                padding: (props.numOfElements < 30) ? 
+                    `${0}% ${20}% ${0}% ${20}%` : `inherit`
             } }
     >
       {props.array.map((value, id) =>
@@ -30,12 +33,13 @@ function BarVisualizerBody(props) {
           // Making of the bars
           style={ { height: `${(value/Math.max(...props.array)) * 100}%`,
                     width: `${100/(props.numOfElements + numOfSpaces)}%`,
-                    backgroundColor: (props.sorted === true ? SORTED_COLOR : 
-                                     (props.sortedBars.includes(id) ? SORTED_COLOR :
-                                     (id === props.specialBar ? SPECIAL_COLOR : 
-                                     (props.greyOutBars.includes(id) ? GREY_OUT :
-                                     (props.currentBars.includes(id)) ? HIGHLIGHT_COLOR : 
-                                     DEFAULT_COLOR))))
+                    backgroundColor: 
+                        (props.sorted === true ? SORTED_COLOR : 
+                        (props.sortedBars.includes(id) ? SORTED_COLOR :
+                        (id === props.specialBar ? SPECIAL_COLOR : 
+                        (props.greyOutBars.includes(id) ? GREY_OUT :
+                        (props.currentBars.includes(id)) ? HIGHLIGHT_COLOR : 
+                        DEFAULT_COLOR))))
                 } }
         >
         </div>
