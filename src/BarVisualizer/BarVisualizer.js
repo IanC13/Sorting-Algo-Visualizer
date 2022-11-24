@@ -8,7 +8,7 @@ import selectionSortHelper from '../Algorithms/SelectionSort';
 import mergeSortHelper from '../Algorithms/MergeSort';
 
 const MIN_DELAY = 1;
-const MAX_DELAY = 300;
+const MAX_DELAY = 250;
 
 const MIN_NUMBER_OF_ELEMENTS = 10;
 const MAX_NUMBER_OF_ELEMENTS = 100;
@@ -75,6 +75,31 @@ function BarVisualizer() {
     setSorted(false);
     setSortedBars([]);
     setGreyOutBars(tempIdxArray);
+  }
+
+  // Fisher-Yates Shuffle algorithm to randomize elements in the array
+  function randomizeCurrentArray() {
+    setCurrentBars([]);
+    setSpecial([]);
+    setSorted(false);
+    setSortedBars([]);
+
+    let newArray = array.slice();
+
+    let currentIdx = newArray.length, randomIdx;
+
+    // While there are elements to shuffle
+    while (currentIdx !== 0) {
+      // pick random index
+      randomIdx = Math.floor(Math.random() * currentIdx);
+      currentIdx -= 1;
+
+      // swap with current element
+      [newArray[currentIdx], newArray[randomIdx]] = 
+          [newArray[randomIdx], newArray[currentIdx]];
+    }
+
+    setArray(newArray);
   }
 
   function calculateDelay() {
@@ -158,7 +183,8 @@ function BarVisualizer() {
         minElements={MIN_NUMBER_OF_ELEMENTS}
         maxElements={MAX_NUMBER_OF_ELEMENTS}
         defaultElements={defaultElements}
-        generateNewArray={newArray} 
+        generateNewArray={newArray}
+        randomizeCurrentArray={randomizeCurrentArray}
 
         running={running}
         

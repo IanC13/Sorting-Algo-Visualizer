@@ -14,12 +14,21 @@
 
 .buttons-container {
   display: flex;
-  gap: min(20px, 10%);
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-around;
+
   margin-top: -10px;
   width: 40%;
 
   align-items: center;
+}
+
+.control-buttons, .algo-buttons {
+  display: flex;
+  gap: min(20px, 10%);
+  flex-wrap: wrap;
+
+  width: 100%;
 }
 
 .slider-container{
@@ -78,8 +87,8 @@ button {
   touch-action: manipulation;
 
   margin-top: 10px;
-  height: 50px;
-  max-height: 50px;
+
+  min-height: 50px;
 
   font-family: inherit;
 

@@ -8,28 +8,39 @@ function BarVisualizerToolbar(props) {
   return (
     <div class='toolbar-container'>
       <div class="buttons-container">
-        <button 
-          onClick={() => 
-            props.generateNewArray(props.numOfElements)} 
-          disabled={props.running}> 
-          Randomize Array
-        </button>
+        <div className="control-buttons">
+          <button
+            onClick={() =>
+              props.generateNewArray(props.numOfElements)}
+            disabled={props.running}>
+            Generate New Array
+          </button>
 
-        <button onClick={props.bubbleSort} disabled={props.running}>
-          Bubble Sort
-        </button>
+          <button 
+            onClick={props.randomizeCurrentArray}
+            disabled={props.running}
+          >
+            Randomize Current Array
+          </button>
+        </div>
 
-        <button onClick={props.selectionSort} disabled={props.running}>
-          Selection Sort
-        </button>
+        <div className="algo-buttons">
+          <button onClick={props.bubbleSort} disabled={props.running}>
+            Bubble Sort
+          </button>
 
-        <button 
-          id='merge-sort-button' 
-          onClick={props.mergeSort}
-          disabled={props.running}
-        >
-          Merge Sort
-        </button>
+          <button onClick={props.selectionSort} disabled={props.running}>
+            Selection Sort
+          </button>
+
+          <button
+            id='merge-sort-button'
+            onClick={props.mergeSort}
+            disabled={props.running}
+          >
+            Merge Sort
+          </button>
+        </div>
       </div>
 
 
