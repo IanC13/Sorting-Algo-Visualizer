@@ -1,8 +1,51 @@
-.App {
+.App-body {
   margin: 50px;
+  margin-bottom: 0px;
+  display: flex;
+  flex-direction: column;
 }
 
-.App h1{
+.App-body h1{
   color: #b79147; 
   padding-left: 5%;;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  margin-top: 30px;
+  background-color: #333;
+}
+
+.github-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2%;
+}
+
+.footer-text {
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  height: 50px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.github-logo {
+  max-width: 18px;
+  max-height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer a {
+  text-decoration: none;
+  height: inherit;
 }

@@ -34,7 +34,7 @@ function BarVisualizerToolbar(props) {
       <div class="slider-container">
         <div id="elements-slider">
           <div class="label">
-            <p>Change Array Size</p>
+            <p className='toolbar-text'>Change Array Size</p>
           </div>
           <Slider 
             usage="elements"
@@ -45,12 +45,12 @@ function BarVisualizerToolbar(props) {
             onSliderChange={props.onElementsSliderChange} 
           />
           <div class="value-display">
-            <p>{props.numOfElements}</p>
+            <p className='toolbar-text'>{props.numOfElements}</p>
           </div>
         </div>
         <div id="speed-slider">
           <div class="label">
-            <p>Change Animation Speed</p>
+            <p className='toolbar-text'>Change Animation Speed</p>
           </div>
           <Slider 
             usage="speed"
@@ -61,7 +61,7 @@ function BarVisualizerToolbar(props) {
             onSliderChange={props.onDelaySliderChange}
           />
           <div class="value-display">
-            <p>
+            <p className='toolbar-text'>
               {`${Math.round((props.currentDelay - props.minDelay) /
                   (props.maxDelay - props.minDelay) * 100)}%`}
             </p>
