@@ -36,6 +36,8 @@ function BarVisualizer() {
   // Used in merge sort to grey out the bars that are not currently being merged
   const [greyOutBars, setGreyOutBars] = useState([]);
 
+  const [running, setRunning] = useState(false);
+
   let defaultDelay = (MIN_DELAY + MAX_DELAY) / 2;
   const [animationDelay, setAnimationDelay] = useState(defaultDelay);
 
@@ -48,6 +50,14 @@ function BarVisualizer() {
     newArray(numOfElements)
   }, [numOfElements])
 
+  // Reset running state to be false when array sorted
+  // re enables the buttons
+  useEffect(function() {
+    if (sorted === true) {
+      setRunning(false);
+    }
+  }, [sorted])
+  
   function newArray(numOfElements) {
     let tempArray = [];
     let tempIdxArray = [];
@@ -72,6 +82,12 @@ function BarVisualizer() {
   }
 
   function bubbleSortFunction() {
+    setCurrentBars([]);
+    setSpecial([]);
+    setSorted(false);
+    setSortedBars([]);
+    
+    setRunning(true);
     bubbleSortHelper(
         array, 
         calculateDelay, 
@@ -84,6 +100,12 @@ function BarVisualizer() {
   }
 
   function selectionSortFunction() {
+    setCurrentBars([]);
+    setSpecial([]);
+    setSorted(false);
+    setSortedBars([]);
+    
+    setRunning(true);
     selectionSortHelper(
         array, 
         calculateDelay, 
@@ -96,6 +118,12 @@ function BarVisualizer() {
   }
 
   function mergeSortFunction() {
+    setCurrentBars([]);
+    setSpecial([]);
+    setSorted(false);
+    setSortedBars([]);
+    
+    setRunning(true);
     mergeSortHelper(
         array, 
         calculateDelay, 
@@ -131,6 +159,8 @@ function BarVisualizer() {
         maxElements={MAX_NUMBER_OF_ELEMENTS}
         defaultElements={defaultElements}
         generateNewArray={newArray} 
+
+        running={running}
         
         bubbleSort={bubbleSortFunction}
         selectionSort={selectionSortFunction}

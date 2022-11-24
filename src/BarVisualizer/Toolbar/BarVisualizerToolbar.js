@@ -10,21 +10,23 @@ function BarVisualizerToolbar(props) {
       <div class="buttons-container">
         <button 
           onClick={() => 
-            props.generateNewArray(props.numOfElements)}> 
+            props.generateNewArray(props.numOfElements)} 
+          disabled={props.running}> 
           Randomize Array
         </button>
 
-        <button onClick={props.bubbleSort}>
+        <button onClick={props.bubbleSort} disabled={props.running}>
           Bubble Sort
         </button>
 
-        <button onClick={props.selectionSort}>
+        <button onClick={props.selectionSort} disabled={props.running}>
           Selection Sort
         </button>
 
         <button 
           id='merge-sort-button' 
           onClick={props.mergeSort}
+          disabled={props.running}
         >
           Merge Sort
         </button>

@@ -20,7 +20,6 @@
   width: 40%;
 
   align-items: center;
-
 }
 
 .slider-container{
@@ -97,3 +96,11 @@ button:hover {
   background-color: #a51c31c5;
 }
 
+button:disabled {
+  background-color: grey;
+  cursor: auto ;
+}
+
+button:disabled:hover {
+  background-color: grey;
+}
