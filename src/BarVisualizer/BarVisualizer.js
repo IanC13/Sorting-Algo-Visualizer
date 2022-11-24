@@ -10,7 +10,7 @@ import mergeSortHelper from '../Algorithms/MergeSort';
 const MIN_DELAY = 1;
 const MAX_DELAY = 300;
 
-const MIN_NUMBER_OF_ELEMENTS = 4;
+const MIN_NUMBER_OF_ELEMENTS = 10;
 const MAX_NUMBER_OF_ELEMENTS = 100;
 
 function BarVisualizer() {
