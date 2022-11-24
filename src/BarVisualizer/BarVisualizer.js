@@ -10,7 +10,7 @@ import mergeSortHelper from '../Algorithms/MergeSort';
 const MIN_DELAY = 1;
 const MAX_DELAY = 300;
 
-const MIN_NUMBER_OF_ELEMENTS = 8;
+const MIN_NUMBER_OF_ELEMENTS = 4;
 const MAX_NUMBER_OF_ELEMENTS = 100;
 
 function BarVisualizer() {
@@ -33,6 +33,7 @@ function BarVisualizer() {
 
   const [sortedBars, setSortedBars] = useState([]);
 
+  // Used in merge sort to grey out the bars that are not currently being merged
   const [greyOutBars, setGreyOutBars] = useState([]);
 
   let defaultDelay = (MIN_DELAY + MAX_DELAY) / 2;
@@ -47,13 +48,14 @@ function BarVisualizer() {
     newArray(numOfElements)
   }, [numOfElements])
 
-
   function newArray(numOfElements) {
     let tempArray = [];
+    let tempIdxArray = [];
 
     // Generate 100 random numbers to put in array
     for (let i = 0; i < numOfElements; i++) {
         tempArray.push(randomInteger());
+        tempIdxArray.push(i);
     }; 
 
     // Set array state
@@ -62,6 +64,7 @@ function BarVisualizer() {
     setSpecial([]);
     setSorted(false);
     setSortedBars([]);
+    setGreyOutBars(tempIdxArray);
   }
 
   function calculateDelay() {
@@ -100,8 +103,8 @@ function BarVisualizer() {
         setSpecial, 
         setArray, 
         setSorted, 
-        
-    setSortedBars, setGreyOutBars);
+        setSortedBars, 
+        setGreyOutBars);
   }
 
   function handleElementsSliderChange(value) {

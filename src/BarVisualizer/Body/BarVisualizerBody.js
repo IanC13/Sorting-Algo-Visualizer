@@ -5,7 +5,7 @@ const DEFAULT_COLOR = '#A51C30';
 const HIGHLIGHT_COLOR = '#808285';
 const SPECIAL_COLOR = '#000000'; 
 const SORTED_COLOR = '#b79147';
-const GREY_OUT = 'lightgreen';
+const GREY_OUT = '#a51c3120';
 
 // Function component using React Hooks 
 function BarVisualizerBody(props) {
@@ -37,8 +37,8 @@ function BarVisualizerBody(props) {
                         (props.sorted === true ? SORTED_COLOR : 
                         (props.sortedBars.includes(id) ? SORTED_COLOR :
                         (id === props.specialBar ? SPECIAL_COLOR : 
-                        (props.greyOutBars.includes(id) ? GREY_OUT :
                         (props.currentBars.includes(id)) ? HIGHLIGHT_COLOR : 
+                        (!props.greyOutBars.includes(id) ? GREY_OUT :
                         DEFAULT_COLOR))))
                 } }
         >
