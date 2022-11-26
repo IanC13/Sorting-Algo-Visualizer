@@ -1,12 +1,15 @@
 :root {
   /* --main-color: rgb(105, 39, 251); */
   --main-color: #A51C30; 
-  --main-color-hover: rgb(104, 117, 217, 0.2);
+  --main-color-hover: rgba(165, 28, 49, 0.2);
   --track-color: lightgrey;
 
   --track-height: 10px;
   --thumb-size: 20px;
   --thumb-border: 5px;
+  
+  --disabled-color: grey;
+  --disabled-color-hover:  rgba(128, 128, 128, 0.2);
 }
 
 
@@ -62,4 +65,16 @@
 
 .thumb:hover {
   box-shadow: 0 0 0 8px var(--main-color-hover);
+}
+
+.slider.disabled .thumb {
+  border-color: var(--disabled-color);
+}
+
+.slider.disabled .thumb:hover {
+  box-shadow: 0 0 0 8px var(--disabled-color-hover);
+}
+
+.slider.disabled  .track.track-0{
+  background: var(--disabled-color);
 }

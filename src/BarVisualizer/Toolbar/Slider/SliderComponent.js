@@ -19,6 +19,7 @@ function Slider(props) {
         max={props.max}
         value={props.currentValue}
         onChange={handleSliderBarChange}
+        disabled={props.disabled}
         // renderThumb={(props, state) => 
         //   <div {...props}>
         //     { state.valueNow }

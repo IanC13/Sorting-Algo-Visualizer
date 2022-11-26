@@ -56,6 +56,7 @@ function BarVisualizerToolbar(props) {
             default={props.defaultElements}
             currentValue={props.numOfElements} 
             onSliderChange={props.onElementsSliderChange} 
+            disabled={props.running}
           />
           <div class="value-display">
             <p className='toolbar-text'>{props.numOfElements}</p>
@@ -72,6 +73,7 @@ function BarVisualizerToolbar(props) {
             default={props.defaultDelay}
             currentValue={props.currentDelay} 
             onSliderChange={props.onDelaySliderChange}
+            disabled={props.running}
           />
           <div class="value-display">
             <p className='toolbar-text'>
