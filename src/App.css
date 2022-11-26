@@ -1,13 +1,15 @@
 .App-body {
   margin: 50px;
   margin-bottom: 0px;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
 }
 
 .App-body h1{
   color: #b79147; 
-  padding-left: 5%;;
+  padding-left: 5%;
+  margin-bottom: 50px;
 }
 
 footer {
