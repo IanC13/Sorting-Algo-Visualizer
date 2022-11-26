@@ -67,12 +67,14 @@
   box-shadow: 0 0 0 8px var(--main-color-hover);
 }
 
+/* Slider styling when disabled (algo running) */
 .slider.disabled .thumb {
   border-color: var(--disabled-color);
 }
 
 .slider.disabled .thumb:hover {
-  box-shadow: 0 0 0 8px var(--disabled-color-hover);
+  cursor: auto;
+  box-shadow: none;
 }
 
 .slider.disabled  .track.track-0{
