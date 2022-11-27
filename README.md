@@ -8,7 +8,7 @@ Test the web app out [here](https://ianc13.github.io/Sorting-Algo-Visualizer/)!
 
 Motivation for this project was to create a vizualization tool to aid in the understanding of the operations of different sorting algorithms whilst learning [React.js](https://reactjs.org/).
 
-This application was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and built using React.js.
+This application was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and built using React Hooks.
 
 ## Implemented Algorithms
 
