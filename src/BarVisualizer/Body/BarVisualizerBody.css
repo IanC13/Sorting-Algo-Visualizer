@@ -1,11 +1,5 @@
 .array-container {
-  max-width: 90%;
-  padding: 10px;
-  padding-bottom: 0px;
-  margin: auto;
-  box-sizing: border-box;
-
-  height: 70vh;
+  height: 65vh;
   flex-shrink: 0;
 
   display: flex;

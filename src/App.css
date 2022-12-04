@@ -6,11 +6,41 @@
   flex-direction: column;
 }
 
+@media (max-width: 600px) {
+  .App-body {
+    margin: 20px;
+  }
+}
+
+.App-body .header {
+  padding-left: 5%;
+  padding: 0 5%;
+  margin-bottom: 30px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
 .App-body h1{
   color: #b79147; 
-  padding-left: 5%;
-  margin-bottom: 50px;
 }
+
+.view-button {
+  padding-left: 5%;
+  padding: 0 5%;
+
+  display: flex;
+  justify-content: flex-end;
+}
+
+.display-body {
+  max-width: 90%;
+  padding: 0px;
+  padding-bottom: 0px;
+  margin: auto;
+  box-sizing: border-box;
+}
+
 
 footer {
   display: flex;

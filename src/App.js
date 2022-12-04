@@ -1,15 +1,39 @@
+import React, {useState} from 'react';
 import './App.css';
-import BarVisualizer from './BarVisualizer/BarVisualizer';
+import AppBody from './App-body';
+import ToggleButton from './ReusableComponents/ToggleButton';
 
 import logo from "./logos/GitHub-Mark-Light-120px-plus.png";
 
 
 function App() {
+
+  // View State
+  const [viewState, setViewState] = useState('bar');
+
+  function handleViewStateChange() {
+    setViewState(viewState === 'cell' ? 'bar' : 'cell');
+  }
+
   return (
     <div className="App">
       <div className="App-body">
-        <h1>Sorting Algorithms Visualizer</h1>
-        <BarVisualizer />
+        <div className='header'>
+          <h1>Sorting Algorithms Visualizer</h1>
+        </div>
+
+        <div className='view-button'>
+          {viewState}
+          <ToggleButton 
+            onViewStateChange={handleViewStateChange}
+          />
+        </div>
+
+        <div>
+          <div className='display-body'>
+            <AppBody viewState={viewState} />
+          </div>
+        </div>
       </div>
         <footer>
           <a  className='github-link'
