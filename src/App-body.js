@@ -1,11 +1,12 @@
 import BarVisualizer from './BarVisualizer/BarVisualizer';
+import CellVisualizer from './CellVisualizer/CellVisualizer';
 
 function AppBody(props) {
 
   if (props.viewState === 'cell') {
     return (
       <div>
-        Here
+        <CellVisualizer />
       </div>
     )
   } else {

@@ -9,7 +9,7 @@ import logo from "./logos/GitHub-Mark-Light-120px-plus.png";
 function App() {
 
   // View State
-  const [viewState, setViewState] = useState('bar');
+  const [viewState, setViewState] = useState('cell');
 
   function handleViewStateChange() {
     setViewState(viewState === 'cell' ? 'bar' : 'cell');

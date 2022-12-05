@@ -1,5 +1,5 @@
 import React from 'react';
-import './BarVisualizerBody.css';
+import '../../Styling/VisualizerBody.css';
 
 const DEFAULT_COLOR = '#A51C30';
 const HIGHLIGHT_COLOR = '#808285';

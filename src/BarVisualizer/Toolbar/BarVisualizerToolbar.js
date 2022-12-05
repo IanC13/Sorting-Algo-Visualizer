@@ -1,5 +1,5 @@
 import React from 'react';
-import './BarVisualizerToolbar.css';
+import '../../Styling/VisualizerToolbar.css';
 import Slider from './Slider/SliderComponent';
 
 
@@ -7,7 +7,7 @@ function BarVisualizerToolbar(props) {
 
   return (
     <div class='toolbar-container'>
-      <div class="buttons-container">
+      <div class="left-buttons-container">
         <div className="control-buttons">
           <button
             onClick={() =>

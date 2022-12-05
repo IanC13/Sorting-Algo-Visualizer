@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
+import '../Styling/VisualizerContainer.css';
 import BarVisualizerBody from './Body/BarVisualizerBody';
 import BarVisualizerToolbar from './Toolbar/BarVisualizerToolbar';
-import './BarVisualizer.css';
 
 import bubbleSortHelper from '../Algorithms/BubbleSort';
 import selectionSortHelper from '../Algorithms/SelectionSort';

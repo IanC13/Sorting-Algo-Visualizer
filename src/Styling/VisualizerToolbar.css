@@ -6,7 +6,7 @@
   background-color: white;
 }
 
-.buttons-container {
+.left-buttons-container {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
