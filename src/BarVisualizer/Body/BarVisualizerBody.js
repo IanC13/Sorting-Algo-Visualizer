@@ -15,7 +15,7 @@ function BarVisualizerBody(props) {
   // render
   return (
     <div
-      className='array-container'
+      className='bar-array-container'
       // Gap and bar width is the same 
       // the width is a percentage of the container where each percentage = 
       // 100(%)/(bars + spaces) %

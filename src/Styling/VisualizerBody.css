@@ -1,4 +1,4 @@
-.array-container {
+.bar-array-container {
   height: 65vh;
   flex-shrink: 0;
 
@@ -14,4 +14,33 @@
   margin: 0;
   padding: 0;
   border: 0px solid black;
+}
+
+.cell-array-container {
+  height: 65vh;
+  flex-shrink: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  background-color: lightgrey;
+}
+
+.cell-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 3px solid black;
+
+  text-align: center; 
+
+  font-size: min(40px, 3.5vw);
+  font-weight: bold;
+}
+
+/* Prevents double border */
+.cell-box + .cell-box {
+  border-left: 0;
 }
