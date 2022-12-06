@@ -1,22 +1,26 @@
-import React from 'react';
 import '../../Styling/VisualizerBody.css';
+import React from 'react';
+import { motion } from "framer-motion";
 
 function CellVisualizerBody(props) {
 
+  const keys = [50, 20, 70, 40, 10, 60, 30, 100];
+
   return (
     <div className='cell-array-container'>
-      {props.array.map((value, id) => 
-        <div 
+      {props.array.map((obj) => 
+        <motion.div 
           className='cell-box'
-          key={id}
-
+          key={obj.key}
           style={ { aspectRatio: 1/1,
                     width: `${100/props.array.length}%`,
                     
                 } }
+          layout
+          transition={{type:"spring", damping: 20, stiffness: 300}}
         > 
-        {value}
-        </div>
+        {obj.value}
+        </motion.div>
       )}
     </div>
   )

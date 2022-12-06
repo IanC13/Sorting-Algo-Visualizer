@@ -1,4 +1,4 @@
-function bubbleSortHelper(
+function bubbleSortHelperBar(
     array, 
     calculateDelay, 
     setCurrentBars, 
@@ -63,6 +63,37 @@ function bubbleSortHelper(
   }
   setCurrentBars([]);
   setSpecial([]);
+}
+
+function bubbleSortHelperCell(
+    array, 
+    setArray, 
+      ) {
+
+  console.log('here');
+
+  let {allArrayStates, animations, largerArray, sortedBars} = bubbleSort(array);
+
+  let delay = 100;
+
+  const length = animations.length;
+
+  // Delay from highlighted bar to larger one highlighted with a different color
+  let largerColorDelay = delay;
+  // Delay from 2 differently highlighted bar to swapping
+  let swapDelay = largerColorDelay + delay;
+
+  for (let i = 0; i < length; i++) {
+    setTimeout(() => {
+      // Current 2 bars we are comparing. state change so re renders which 
+      // trigger the color change
+ 
+
+      setArray(allArrayStates[i]);
+
+
+    }, i * (delay ));
+  }
 }
 
 function bubbleSort(array) {
@@ -134,4 +165,4 @@ function bubbleSort(array) {
 }
 
 
-export default bubbleSortHelper;
+export { bubbleSortHelperBar, bubbleSortHelperCell };

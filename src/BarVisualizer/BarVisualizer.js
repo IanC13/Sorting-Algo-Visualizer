@@ -3,7 +3,7 @@ import '../Styling/VisualizerContainer.css';
 import BarVisualizerBody from './Body/BarVisualizerBody';
 import BarVisualizerToolbar from './Toolbar/BarVisualizerToolbar';
 
-import bubbleSortHelper from '../Algorithms/BubbleSort';
+import { bubbleSortHelperBar } from '../Algorithms/BubbleSort';
 import selectionSortHelper from '../Algorithms/SelectionSort';
 import mergeSortHelper from '../Algorithms/MergeSort';
 
@@ -14,7 +14,6 @@ const MIN_NUMBER_OF_ELEMENTS = 10;
 const MAX_NUMBER_OF_ELEMENTS = 100;
 
 function BarVisualizer() {
-  // Lifting the state up
   // Number of elements in the array 
   let defaultElements = (MIN_NUMBER_OF_ELEMENTS + MAX_NUMBER_OF_ELEMENTS) / 2;
   const [numOfElements, setNumOfElements] = useState(defaultElements);
@@ -113,7 +112,7 @@ function BarVisualizer() {
     setSortedBars([]);
     
     setRunning(true);
-    bubbleSortHelper(
+    bubbleSortHelperBar(
         array, 
         calculateDelay, 
         setCurrentBars, 

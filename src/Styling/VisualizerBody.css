@@ -42,5 +42,5 @@
 
 /* Prevents double border */
 .cell-box + .cell-box {
-  border-left: 0;
+  margin-left: -3px;
 }
