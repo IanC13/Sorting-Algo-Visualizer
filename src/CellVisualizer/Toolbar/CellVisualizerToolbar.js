@@ -27,7 +27,20 @@ function CellVisualizerToolbar(props) {
       </div>
 
       <div className='right-buttons-container'>
-        <button>This</button>
+        <button 
+          onClick={props.stepBackwards}
+          disabled={!props.algoSelected}
+        >
+          {`<`}
+        </button>
+
+        <button 
+          onClick={props.stepForwards}
+          disabled={!props.algoSelected}
+        >
+          {`>`}
+        </button>
+
       </div>
     </div>
   );

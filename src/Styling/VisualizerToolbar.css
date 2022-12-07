@@ -8,7 +8,7 @@
   min-height: 100px;
 }
 
-.left-buttons-container, .right-buttons-container {
+.left-buttons-container {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -17,6 +17,19 @@
   width: 40%;
 
   align-items: center;
+}
+
+.right-buttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 20%;
+  gap: 10px;
+}
+
+.right-buttons-container button {
+  height: 30px;
 }
 
 .control-buttons, .algo-buttons {

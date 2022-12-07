@@ -7,6 +7,7 @@
   align-items: flex-end;
   
   background-color: lightgrey;
+  border: 2px solid black;
 }
 
 .array-bar {
@@ -25,6 +26,7 @@
   align-items: center;
   
   background-color: lightgrey;
+  border: 2px solid black;
 }
 
 .cell-box {

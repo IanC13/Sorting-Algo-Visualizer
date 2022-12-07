@@ -2,24 +2,36 @@ import '../../Styling/VisualizerBody.css';
 import React from 'react';
 import { motion } from "framer-motion";
 
-function CellVisualizerBody(props) {
+const DEFAULT_COLOR = '#A51C30';
+const HIGHLIGHT_COLOR = '#808285';
+const SORTED_COLOR = '#b79147';
 
-  const keys = [50, 20, 70, 40, 10, 60, 30, 100];
+function CellVisualizerBody(props) {
 
   return (
     <div className='cell-array-container'>
-      {props.array.map((obj) => 
+      {props.array.map((elementObject) => 
         <motion.div 
           className='cell-box'
-          key={obj.key}
+          key={elementObject.key}
           style={ { aspectRatio: 1/1,
                     width: `${100/props.array.length}%`,
-                    
+                    backgroundColor: 
+                        (props.sorted === true ? SORTED_COLOR : 
+                        (props.sortedElements !== undefined) && 
+                         (props.sortedElements.includes(elementObject.key)) ? 
+                            SORTED_COLOR : 
+                         ((props.highlightedCells !== undefined) &&
+                          (props.highlightedCells.includes(elementObject.key))) 
+                            ? HIGHLIGHT_COLOR : 
+                        DEFAULT_COLOR)
                 } }
+
+          // Framer Motion 
           layout
           transition={{type:"spring", damping: 20, stiffness: 300}}
         > 
-        {obj.value}
+        {elementObject.value}
         </motion.div>
       )}
     </div>

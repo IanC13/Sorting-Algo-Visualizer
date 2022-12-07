@@ -6,31 +6,96 @@ import CellVisualizerBody from './Body/CellVisualizerBody';
 
 import { bubbleSortHelperCell } from '../Algorithms/BubbleSort';
 
-const testArray = [
-  [{key:5, value:5}, {key: 2, value: 2}, {key: 7, value: 7}, {key: 4, value: 4}, {key: 1, value: 1}, {key: 6, value: 6}, {key: 3, value: 3}, {key: 0, value: 1}],
-  [{key:0, value:1}, {key: 2, value: 2}, {key: 7, value: 7}, {key: 4, value: 4}, {key: 1, value: 1}, {key: 6, value: 6}, {key: 3, value: 3}, {key: 5, value: 5}],
-  [{key:0, value:1}, {key: 1, value: 1}, {key: 7, value: 7}, {key: 4, value: 4}, {key: 2, value: 2}, {key: 6, value: 6}, {key: 3, value: 3}, {key: 5, value: 5}],
-  [{key:0, value:1}, {key: 1, value: 1}, {key: 2, value: 2}, {key: 4, value: 4}, {key: 7, value: 7}, {key: 6, value: 6}, {key: 3, value: 3}, {key: 5, value: 5}],
-  [{key:0, value:1}, {key: 1, value: 1}, {key: 2, value: 2}, {key: 3, value: 3}, {key: 7, value: 7}, {key: 6, value: 6}, {key: 4, value: 4}, {key: 5, value: 5}],
-  [{key:0, value:1}, {key: 1, value: 1}, {key: 2, value: 2}, {key: 3, value: 3}, {key: 4, value: 4}, {key: 6, value: 6}, {key: 7, value: 7}, {key: 5, value: 5}],
-  [{key:0, value:1}, {key: 1, value: 1}, {key: 2, value: 2}, {key: 3, value: 3}, {key: 4, value: 4}, {key: 5, value: 5}, {key: 7, value: 7}, {key: 6, value: 6}],
-  [{key:0, value:1}, {key: 1, value: 1}, {key: 2, value: 2}, {key: 3, value: 3}, {key: 4, value: 4}, {key: 5, value: 5}, {key: 6, value: 6}, {key: 7, value: 7}]
-];
+// Obj necessary as Framer Motion tracks the key for animation
+const startingArray = [
+    {key: 5, value: 5}, 
+    {key: 2, value: 2}, 
+    {key: 7, value: 7}, 
+    {key: 4, value: 4}, 
+    {key: 1, value: 1}, 
+    {key: 6, value: 6}, 
+    {key: 3, value: 3}, 
+    {key: 0, value: 1} ];
 
-let count = 0;
+// Tracks the current step in the algorithm when stepping through it
+let currentStep = -1;
 
 function CellVisualizer() {
 
-  const [array, setArray] = useState(testArray[0]);
+  const [algoSelected, setAlgoSelected] = useState(false);
 
+  const [sorted, setSorted] = useState(false);
 
-  function bubbleSortFunction () {
-    //bubbleSortHelperCell(array, setArray);
-    count += 1;
-    if (count === testArray.length) {
-      count = 0;
+  const [array, setArray] = useState(startingArray);
+
+  const [arrayStates, setArrayStates] = useState();
+  
+  const [highlightedCells, setHighlightedCells] = useState();
+
+  const [highlightedCellsStates, setHighlightedCellsStates] = useState();
+
+  const [sortedElements, setSortedElements] = useState();
+
+  const [sortedElementsStates, setSortedElementsStates] = useState();
+
+  function bubbleSortFunction() {
+    currentStep = -1;
+    setAlgoSelected(true);
+    setSorted(false);
+
+    setArray();
+    setArrayStates();
+
+    setHighlightedCells();
+    setHighlightedCellsStates();
+
+    setSortedElements();
+    setSortedElementsStates();
+
+    let {allArrayStates, animations, sortedElements} = 
+        bubbleSortHelperCell(startingArray);
+
+    console.log(allArrayStates);
+
+    setArray(allArrayStates[0]);
+        
+    setArrayStates(allArrayStates);
+    setHighlightedCellsStates(animations);
+    setSortedElementsStates(sortedElements);
+  }
+
+  function stepForwardFunction() {
+    currentStep += 1;
+    
+    // End of animations
+    if (currentStep === arrayStates.length) {
+      currentStep -= 1;
+      setSorted(true);
     }
-    setArray(testArray[count]);
+
+    if (currentStep === arrayStates.length -1) {
+      setSorted(true);
+    }
+    
+    setArray(arrayStates[currentStep]);
+    setHighlightedCells(highlightedCellsStates[currentStep]);
+    setSortedElements(sortedElementsStates[currentStep]);
+  }
+
+  function stepBackwardsFunction() {
+    currentStep -= 1;
+    
+    if (currentStep < arrayStates.length -1) {
+      setSorted(false);
+    }
+    
+    if (currentStep === -1) {
+      currentStep += 1;
+    }
+    
+    setArray(arrayStates[currentStep]);
+    setHighlightedCells(highlightedCellsStates[currentStep]);
+    setSortedElements(sortedElementsStates[currentStep]);
   }
 
   return (
@@ -38,10 +103,17 @@ function CellVisualizer() {
       <CellVisualizerToolbar 
 
         bubbleSort={bubbleSortFunction}
+
+        algoSelected={algoSelected}
+        stepForwards={stepForwardFunction}
+        stepBackwards={stepBackwardsFunction}
       />
 
       <CellVisualizerBody 
         array={array}
+        highlightedCells={highlightedCells}
+        sortedElements={sortedElements}
+        sorted={sorted}
       />
     </div>
   )
