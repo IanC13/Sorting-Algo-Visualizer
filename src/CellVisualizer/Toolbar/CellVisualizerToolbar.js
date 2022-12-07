@@ -39,20 +39,50 @@ function CellVisualizerToolbar(props) {
         </div>
       </div>
 
-      <div className='right-buttons-container'>
-        <button 
-          onClick={props.stepBackwards}
-          disabled={!props.algoSelected}
-        >
-          {`<`}
-        </button>
+      <div className='right-buttons-container playback-control-buttons'>
+        <div className='auto-playback-buttons-container'>
+          <div className=''>
+            <p className='toolbar-text'>Autoplay</p>
+          </div>
+            
+          <div className='auto-playback-buttons'>
+            <button
+              onClick={props.pause}
+              disabled={!props.algoSelected}
+            >
+              Pause
+            </button>
+            <button
+              onClick={props.play}
+              disabled={!props.algoSelected || props.running}
+            >
+              Play
+            </button>
+          </div>
+        </div>
 
-        <button 
-          onClick={props.stepForwards}
-          disabled={!props.algoSelected}
-        >
-          {`>`}
-        </button>
+        <div className='manual-playback-buttons-container'>
+          <div className=''>
+            <p className='toolbar-text'>Manual Step Through</p>
+          </div>
+
+          <div className='manual-playback-buttons'>
+            <button
+              onClick={props.stepBackwards}
+              disabled={!props.algoSelected}
+            >
+              {`<`}
+            </button>
+
+            <button
+              onClick={props.stepForwards}
+              disabled={!props.algoSelected}
+            >
+              {`>`}
+            </button>
+            
+          </div>
+        </div>
 
       </div>
     </div>

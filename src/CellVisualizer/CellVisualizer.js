@@ -21,6 +21,9 @@ const startingArray = [
 // Tracks the current step in the algorithm when stepping through it
 let currentStep = -1;
 
+// setInterval timer ID for auto play
+let playTimer;
+
 function CellVisualizer() {
 
   const [algoSelected, setAlgoSelected] = useState(false);
@@ -39,6 +42,8 @@ function CellVisualizer() {
 
   const [sortedElementsStates, setSortedElementsStates] = useState();
 
+  const [running, setRunning] = useState(false);
+
   function resetDefaultArray() {
     currentStep = -1;
     setAlgoSelected(true);
@@ -52,6 +57,8 @@ function CellVisualizer() {
 
     setSortedElements();
     setSortedElementsStates();
+
+    setRunning(false);
   }
 
   function resetState() {
@@ -66,6 +73,8 @@ function CellVisualizer() {
 
     setSortedElements();
     setSortedElementsStates();
+
+    setRunning(false);
   }
 
   function bubbleSortFunction() {
@@ -130,18 +139,52 @@ function CellVisualizer() {
     setSortedElements(sortedElementsStates[currentStep]);
   }
 
+  function playAnimationFunction() {
+    setRunning(true);
+
+    playTimer = setInterval(() => {
+      currentStep += 1;
+    
+      // End of animations
+      if (currentStep === arrayStates.length) {
+        currentStep -= 1;
+        setSorted(true);
+        setRunning(false);
+        clearInterval(playTimer);
+      }
+
+      if (currentStep === arrayStates.length -1) {
+        setSorted(true);
+      }
+
+      setArray(arrayStates[currentStep]);
+      setHighlightedCells(highlightedCellsStates[currentStep]);
+      setSortedElements(sortedElementsStates[currentStep]);
+    }, 250)
+
+  }
+
+  function pauseAnimationFunction() {
+    setRunning(false);
+    clearInterval(playTimer);
+  }
+
   //============================================================================
 
   return (
     <div className='CellVisualizer'>
       <CellVisualizerToolbar 
         resetArray={resetDefaultArray}
+        running={running}
 
         bubbleSort={bubbleSortFunction}
         selectionSort={selectionSortFunction}
 
 
         algoSelected={algoSelected}
+
+        play={playAnimationFunction}
+        pause={pauseAnimationFunction}
         stepForwards={stepForwardFunction}
         stepBackwards={stepBackwardsFunction}
       />

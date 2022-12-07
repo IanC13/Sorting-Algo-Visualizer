@@ -25,8 +25,8 @@
   justify-content: center;
   align-items: center;
 
-  width: 20%;
-  gap: 10px;
+  width: 45%;
+  gap: 10%;
 }
 
 .right-buttons-container button {
@@ -122,4 +122,22 @@ button:disabled {
 
 button:disabled:hover {
   background-color: grey;
+}
+
+/*  Cell Visualizer Specific */
+.playback-control-buttons {
+  justify-content: space-evenly;
+}
+
+.manual-playback-buttons-container, 
+    .auto-playback-buttons-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.manual-playback-buttons, 
+    .auto-playback-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10%;
 }
