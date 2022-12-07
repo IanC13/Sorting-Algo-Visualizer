@@ -107,7 +107,7 @@ function selectionSortBar(array) {
  */
 
 function selectionSortHelperCell(array) {
-  console.log(array);
+
   let {allArrayStates, animations, sortedElements} = selectionSortCell(array);
 
   return { allArrayStates, animations, sortedElements };

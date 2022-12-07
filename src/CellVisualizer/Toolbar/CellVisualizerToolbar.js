@@ -7,6 +7,13 @@ function CellVisualizerToolbar(props) {
   return (
     <div class='toolbar-container'>
       <div class="left-buttons-container">
+      <div className="control-buttons">
+          <button
+            onClick={props.resetArray}
+            disabled={props.running}>
+            Reset To Default Array
+          </button>
+        </div>
         <div className="algo-buttons">
           <button 
             onClick={props.bubbleSort} 

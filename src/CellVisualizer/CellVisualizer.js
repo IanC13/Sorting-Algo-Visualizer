@@ -39,6 +39,21 @@ function CellVisualizer() {
 
   const [sortedElementsStates, setSortedElementsStates] = useState();
 
+  function resetDefaultArray() {
+    currentStep = -1;
+    setAlgoSelected(true);
+    setSorted(false);
+
+    setArray(startingArray)
+    setArrayStates();
+
+    setHighlightedCells();
+    setHighlightedCellsStates();
+
+    setSortedElements();
+    setSortedElementsStates();
+  }
+
   function resetState() {
     currentStep = -1;
     setAlgoSelected(true);
@@ -120,6 +135,8 @@ function CellVisualizer() {
   return (
     <div className='CellVisualizer'>
       <CellVisualizerToolbar 
+        resetArray={resetDefaultArray}
+
         bubbleSort={bubbleSortFunction}
         selectionSort={selectionSortFunction}
 
