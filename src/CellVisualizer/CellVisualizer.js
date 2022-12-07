@@ -44,7 +44,6 @@ function CellVisualizer() {
     setAlgoSelected(true);
     setSorted(false);
 
-    setArray();
     setArrayStates();
 
     setHighlightedCells();
@@ -58,7 +57,7 @@ function CellVisualizer() {
     resetState();
 
     let {allArrayStates, animations, sortedElements} = 
-        bubbleSortHelperCell(startingArray);
+        bubbleSortHelperCell(array);
 
     setArray(allArrayStates[0]);
     setArrayStates(allArrayStates);
@@ -71,7 +70,7 @@ function CellVisualizer() {
     resetState();
 
     let {allArrayStates, animations, sortedElements} = 
-        selectionSortHelperCell(startingArray);
+        selectionSortHelperCell(array);
 
     setArray(allArrayStates[0]);
     setArrayStates(allArrayStates);
