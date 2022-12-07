@@ -8,11 +8,17 @@ function CellVisualizerToolbar(props) {
     <div class='toolbar-container'>
       <div class="left-buttons-container">
         <div className="algo-buttons">
-          <button onClick={props.bubbleSort} disabled={props.running}>
+          <button 
+            onClick={props.bubbleSort} 
+            disabled={props.running}
+          >
             Bubble Sort
           </button>
 
-          <button onClick={props.selectionSort} disabled={props.running}>
+          <button 
+            onClick={props.selectionSort} 
+            disabled={props.running}
+          >
             Selection Sort
           </button>
 

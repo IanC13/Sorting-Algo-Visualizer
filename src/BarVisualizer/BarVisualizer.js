@@ -4,7 +4,7 @@ import BarVisualizerBody from './Body/BarVisualizerBody';
 import BarVisualizerToolbar from './Toolbar/BarVisualizerToolbar';
 
 import { bubbleSortHelperBar } from '../Algorithms/BubbleSort';
-import selectionSortHelper from '../Algorithms/SelectionSort';
+import { selectionSortHelperBar } from '../Algorithms/SelectionSort';
 import mergeSortHelper from '../Algorithms/MergeSort';
 
 const MIN_DELAY = 1;
@@ -105,13 +105,17 @@ function BarVisualizer() {
     return (-1 * animationDelay) + MIN_DELAY + MAX_DELAY;
   }
 
-  function bubbleSortFunction() {
+  function resetState() {
     setCurrentBars([]);
     setSpecial([]);
     setSorted(false);
     setSortedBars([]);
-    
     setRunning(true);
+  }
+
+  function bubbleSortFunction() {
+    resetState();
+
     bubbleSortHelperBar(
         array, 
         calculateDelay, 
@@ -124,13 +128,9 @@ function BarVisualizer() {
   }
 
   function selectionSortFunction() {
-    setCurrentBars([]);
-    setSpecial([]);
-    setSorted(false);
-    setSortedBars([]);
-    
-    setRunning(true);
-    selectionSortHelper(
+    resetState();
+
+    selectionSortHelperBar(
         array, 
         calculateDelay, 
         setCurrentBars, 
@@ -142,12 +142,8 @@ function BarVisualizer() {
   }
 
   function mergeSortFunction() {
-    setCurrentBars([]);
-    setSpecial([]);
-    setSorted(false);
-    setSortedBars([]);
-    
-    setRunning(true);
+    resetState();
+
     mergeSortHelper(
         array, 
         calculateDelay, 

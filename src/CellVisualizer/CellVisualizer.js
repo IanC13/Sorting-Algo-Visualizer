@@ -5,6 +5,7 @@ import CellVisualizerToolbar from './Toolbar/CellVisualizerToolbar';
 import CellVisualizerBody from './Body/CellVisualizerBody';
 
 import { bubbleSortHelperCell } from '../Algorithms/BubbleSort';
+import { selectionSortHelperCell } from '../Algorithms/SelectionSort';
 
 // Obj necessary as Framer Motion tracks the key for animation
 const startingArray = [
@@ -38,7 +39,7 @@ function CellVisualizer() {
 
   const [sortedElementsStates, setSortedElementsStates] = useState();
 
-  function bubbleSortFunction() {
+  function resetState() {
     currentStep = -1;
     setAlgoSelected(true);
     setSorted(false);
@@ -51,19 +52,36 @@ function CellVisualizer() {
 
     setSortedElements();
     setSortedElementsStates();
+  }
+
+  function bubbleSortFunction() {
+    resetState();
 
     let {allArrayStates, animations, sortedElements} = 
         bubbleSortHelperCell(startingArray);
 
-    console.log(allArrayStates);
-
     setArray(allArrayStates[0]);
-        
     setArrayStates(allArrayStates);
     setHighlightedCellsStates(animations);
     setSortedElementsStates(sortedElements);
   }
 
+
+  function selectionSortFunction() {
+    resetState();
+
+    let {allArrayStates, animations, sortedElements} = 
+        selectionSortHelperCell(startingArray);
+
+    setArray(allArrayStates[0]);
+    setArrayStates(allArrayStates);
+    setHighlightedCellsStates(animations);
+    setSortedElementsStates(sortedElements);
+
+  }
+
+
+  //===================== Control Button Functions =============================
   function stepForwardFunction() {
     currentStep += 1;
     
@@ -98,11 +116,14 @@ function CellVisualizer() {
     setSortedElements(sortedElementsStates[currentStep]);
   }
 
+  //============================================================================
+
   return (
     <div className='CellVisualizer'>
       <CellVisualizerToolbar 
-
         bubbleSort={bubbleSortFunction}
+        selectionSort={selectionSortFunction}
+
 
         algoSelected={algoSelected}
         stepForwards={stepForwardFunction}

@@ -137,15 +137,13 @@ function bubbleSort(array) {
 
 
 /* =============================================================================
-   ===========================  CELL VIEW  =====================================
-   =============================================================================
-  */
+ * ===========================  CELL VIEW  =====================================
+ * =============================================================================
+ */
 function bubbleSortHelperCell(array) {
-
   let {allArrayStates, animations, sortedElements} = bubbleSortCell(array);
 
   return { allArrayStates, animations, sortedElements };
-
 }
 
 
@@ -157,7 +155,7 @@ function bubbleSortCell(array) {
 
   let allArrayStates = [];
 
-  let largerArray = [];
+  // let largerArray = [];
 
   let sortedElements = [[]];
 
@@ -165,13 +163,14 @@ function bubbleSortCell(array) {
     let swap = false;
 
     for (let j = 0; j < length - 1 - i; j++) {
-      // Highlights comparing bars
+
+      // Animation States
       animations.push([newArray[j].key, newArray[j+1].key]);
       allArrayStates.push([...newArray]);
       sortedElements.push(sortedElements[sortedElements.length - 1]);
 
       if (newArray[j].value > newArray[j+1].value) {
-        largerArray.push([j, j+1]);
+        // largerArray.push([j, j+1]);
 
         let temp = newArray[j];
         newArray[j] = newArray[j+1];
@@ -179,14 +178,14 @@ function bubbleSortCell(array) {
       
         swap = true;
 
+        // Animation States
         animations.push([newArray[j].key, newArray[j+1].key]);
         allArrayStates.push([...newArray]);
-
         if (j !== length - 1 - i - 1) {
           sortedElements.push(sortedElements[sortedElements.length - 1]);
         }
       } else {
-        largerArray.push([j+1, j+1]);
+        // largerArray.push([j+1, j+1]);
       }
     }
     

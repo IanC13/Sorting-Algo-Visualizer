@@ -40,6 +40,7 @@
 
   font-size: min(40px, 3.5vw);
   font-weight: bold;
+  color: white;
 }
 
 /* Prevents double border */
