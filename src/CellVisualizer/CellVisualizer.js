@@ -44,9 +44,13 @@ function CellVisualizer() {
 
   const [running, setRunning] = useState(false);
 
+  const [startOfAnimations, setStartOfAnimations] = useState(false);
+
+  const [endOfAnimations, setEndOfAnimations] = useState(false);
+
   function resetDefaultArray() {
     currentStep = -1;
-    setAlgoSelected(true);
+    setAlgoSelected(false);
     setSorted(false);
 
     setArray(startingArray)
@@ -59,6 +63,7 @@ function CellVisualizer() {
     setSortedElementsStates();
 
     setRunning(false);
+    setEndOfAnimations(false);
   }
 
   function resetState() {
@@ -75,6 +80,7 @@ function CellVisualizer() {
     setSortedElementsStates();
 
     setRunning(false);
+    setStartOfAnimations(true);
   }
 
   function bubbleSortFunction() {
@@ -111,11 +117,15 @@ function CellVisualizer() {
     // End of animations
     if (currentStep === arrayStates.length) {
       currentStep -= 1;
+      setEndOfAnimations(true);
+    }
+    
+    if (currentStep === arrayStates.length -1) {
       setSorted(true);
     }
 
-    if (currentStep === arrayStates.length -1) {
-      setSorted(true);
+    if (currentStep > 0) {
+      setStartOfAnimations(false);
     }
     
     setArray(arrayStates[currentStep]);
@@ -127,13 +137,18 @@ function CellVisualizer() {
     currentStep -= 1;
     
     if (currentStep < arrayStates.length -1) {
+      setEndOfAnimations(false);
       setSorted(false);
     }
     
     if (currentStep === -1) {
       currentStep += 1;
     }
-    
+
+    if (currentStep === 0) {
+      setStartOfAnimations(true);
+    }
+        
     setArray(arrayStates[currentStep]);
     setHighlightedCells(highlightedCellsStates[currentStep]);
     setSortedElements(sortedElementsStates[currentStep]);
@@ -141,6 +156,7 @@ function CellVisualizer() {
 
   function playAnimationFunction() {
     setRunning(true);
+    setStartOfAnimations(false);
 
     playTimer = setInterval(() => {
       currentStep += 1;
@@ -150,6 +166,7 @@ function CellVisualizer() {
         currentStep -= 1;
         setSorted(true);
         setRunning(false);
+        setEndOfAnimations(true);
         clearInterval(playTimer);
       }
 
@@ -176,6 +193,8 @@ function CellVisualizer() {
       <CellVisualizerToolbar 
         resetArray={resetDefaultArray}
         running={running}
+        startOfAnimations={startOfAnimations}
+        endOfAnimations={endOfAnimations}
 
         bubbleSort={bubbleSortFunction}
         selectionSort={selectionSortFunction}

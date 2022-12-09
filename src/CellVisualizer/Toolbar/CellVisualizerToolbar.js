@@ -48,13 +48,14 @@ function CellVisualizerToolbar(props) {
           <div className='auto-playback-buttons'>
             <button
               onClick={props.pause}
-              disabled={!props.algoSelected}
+              disabled={!props.algoSelected || !props.running}
             >
               Pause
             </button>
             <button
               onClick={props.play}
-              disabled={!props.algoSelected || props.running}
+              disabled={!props.algoSelected || props.running || 
+                  props.endOfAnimations}
             >
               Play
             </button>
@@ -69,14 +70,16 @@ function CellVisualizerToolbar(props) {
           <div className='manual-playback-buttons'>
             <button
               onClick={props.stepBackwards}
-              disabled={!props.algoSelected}
+              disabled={!props.algoSelected || props.running || 
+                  props.startOfAnimations}
             >
               {`<`}
             </button>
 
             <button
               onClick={props.stepForwards}
-              disabled={!props.algoSelected}
+              disabled={!props.algoSelected || props.running || 
+                  props.endOfAnimations}
             >
               {`>`}
             </button>
