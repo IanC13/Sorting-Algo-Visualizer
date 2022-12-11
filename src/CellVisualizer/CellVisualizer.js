@@ -81,6 +81,7 @@ function CellVisualizer() {
 
     setRunning(false);
     setStartOfAnimations(true);
+    setEndOfAnimations(false);
   }
 
   function bubbleSortFunction() {
