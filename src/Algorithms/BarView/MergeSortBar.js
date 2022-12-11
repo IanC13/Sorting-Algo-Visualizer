@@ -1,4 +1,4 @@
-function mergeSortHelper(
+function mergeSortHelperBar(
     array, 
     calculateDelay, 
     setCurrentBars, 
@@ -334,7 +334,7 @@ function mergeSort(
         allArrayStates, animations, currentSmallest, sortedBars, greyOutBars};
 }
 
-export default mergeSortHelper;
+export default mergeSortHelperBar;
 
 // TESTING ALGORITHM
 // let flag = true;

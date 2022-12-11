@@ -4,8 +4,8 @@ import '../Styling/VisualizerContainer.css';
 import CellVisualizerToolbar from './Toolbar/CellVisualizerToolbar';
 import CellVisualizerBody from './Body/CellVisualizerBody';
 
-import { bubbleSortHelperCell } from '../Algorithms/BubbleSort';
-import { selectionSortHelperCell } from '../Algorithms/SelectionSort';
+import bubbleSortHelperCell from '../Algorithms/Cell/BubbleSortCell';
+import selectionSortHelperCell from '../Algorithms/Cell/SelectionSortCell';
 
 // Obj necessary as Framer Motion tracks the key for animation
 const startingArray = [

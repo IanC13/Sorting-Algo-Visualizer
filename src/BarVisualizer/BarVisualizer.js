@@ -3,9 +3,9 @@ import '../Styling/VisualizerContainer.css';
 import BarVisualizerBody from './Body/BarVisualizerBody';
 import BarVisualizerToolbar from './Toolbar/BarVisualizerToolbar';
 
-import { bubbleSortHelperBar } from '../Algorithms/BubbleSort';
-import { selectionSortHelperBar } from '../Algorithms/SelectionSort';
-import mergeSortHelper from '../Algorithms/MergeSort';
+import bubbleSortHelperBar from '../Algorithms/BarView/BubbleSortBar';
+import selectionSortHelperBar from '../Algorithms/BarView/SelectionSortBar';
+import mergeSortHelperBar from '../Algorithms/BarView/MergeSortBar';
 
 const MIN_DELAY = 1;
 const MAX_DELAY = 250;
@@ -144,7 +144,7 @@ function BarVisualizer() {
   function mergeSortFunction() {
     resetState();
 
-    mergeSortHelper(
+    mergeSortHelperBar(
         array, 
         calculateDelay, 
         setCurrentBars, 
