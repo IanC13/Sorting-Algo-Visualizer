@@ -116,13 +116,6 @@ function mergeSort(
     // Find middle of array
     let midIdx = Math.floor((leftIdx + rightIdx) / 2);
 
-    // grey out right array
-    // let oldGrey = greyOutBars[greyOutBars.length-1]
-    // oldGrey ? greyOutBars.push(oldGrey.slice()) : greyOutBars.push([]);
-    // for (let i = midIdx + 1; i <= rightIdx; i++) {
-    //   greyOutBars[greyOutBars.length-1].push(i);
-    // }
-
     // Recursively call mergeSort on each part
     mergeSort(
         array, 
@@ -134,17 +127,6 @@ function mergeSort(
         callDepth,
         greyOutBars
     );
-
-    // grey left array and ungrey right array
-    // let tmpArray = greyOutBars[greyOutBars.length -1];
-    // for (let i = midIdx + 1; i <= rightIdx; i++) {
-    //   tmpArray = tmpArray.filter(e => e !== i);
-    // }
-    // greyOutBars.push(tmpArray);
-
-    // for (let i = leftIdx; i <= midIdx; i++) {
-    //   greyOutBars[greyOutBars.length -1].push(i);
-    // }
 
     mergeSort(
         array, 
@@ -161,14 +143,6 @@ function mergeSort(
     // At this point on every recursive call, we have 2 sorted arrays 
     // Merge them two together
 
-    // ungrey both left and right
-    // tmpArray = greyOutBars[greyOutBars.length -1];
-
-    // for (let i = leftIdx; i <= rightIdx; i++) {
-    //   tmpArray = tmpArray.filter(e => e !== i);
-    // }
-    // greyOutBars.push(tmpArray)
-
     merge(
         array, 
         leftIdx, 
@@ -183,12 +157,6 @@ function mergeSort(
     );
   }
   
-  // grey out single array
-  // if (leftIdx >= rightIdx) {
-    //   let oldGrey = greyOutBars[greyOutBars.length-1]
-    //   greyOutBars.push(oldGrey.slice());
-    //   greyOutBars[greyOutBars.length-1].push(leftIdx);
-    // }
     return {
         allArrayStates, animations, currentSmallest, sortedBars, greyOutBars};
   } 
@@ -206,8 +174,6 @@ function mergeSort(
       callDepth,
       greyOutBars) {
     
-    
-
     greyOutBars.push([]);
     // push indices of the left array
     for (let i = leftIdx; i < rightIdx+1; i++) {

@@ -214,6 +214,31 @@ function CellVisualizer() {
         highlightedCells={highlightedCells}
         sortedElements={sortedElements}
         sorted={sorted}
+        auxillaryArrays=
+          {[ 
+            // Levels
+            [
+              // Sub arrays
+              [5, 2, 7, 4], [1, 6, 3, 1]
+            ], 
+            [
+              // Sub arrays
+              [5, 2], [7, 4], [1, 6], [3, 1]
+            ],
+            [
+              // Sub arrays
+              [5], [2], [7], [4], [1], [6], [3], [1]
+            ],
+            [
+              [2, 5], [4, 7], [1, 6], [1, 3]
+            ],
+            [
+              [2, 4, 5, 7], [1, 1, 3, 6]
+            ],
+            [
+              [1, 1, 2, 3, 4, 5, 6, 7]
+            ]
+          ]}
       />
     </div>
   )

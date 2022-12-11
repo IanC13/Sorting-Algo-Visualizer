@@ -1,5 +1,5 @@
 .bar-array-container {
-  height: 65vh;
+  height: 70vh;
   flex-shrink: 0;
 
   display: flex;
@@ -18,15 +18,30 @@
 }
 
 .cell-array-container {
-  height: 65vh;
+  height: 70vh;
   flex-shrink: 0;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   
   background-color: lightgrey;
   border: 2px solid black;
+}
+
+.main-array {
+  width: 100%;
+  margin: max(3%, 10px) 0;
+}
+
+.cell-array {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
 }
 
 .cell-box {
@@ -46,4 +61,18 @@
 /* Prevents double border */
 .cell-box + .cell-box {
   margin-left: -3px;
+}
+
+.auxillary {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.levels {
+  display: flex;
+  flex-direction: row;
 }
