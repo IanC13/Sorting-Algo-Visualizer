@@ -6,6 +6,7 @@ import CellVisualizerBody from './Body/CellVisualizerBody';
 
 import bubbleSortHelperCell from '../Algorithms/Cell/BubbleSortCell';
 import selectionSortHelperCell from '../Algorithms/Cell/SelectionSortCell';
+import mergeSortHelperCell from '../Algorithms/Cell/MergeSortCell';
 
 // Obj necessary as Framer Motion tracks the key for animation
 const startingArray = [
@@ -48,6 +49,10 @@ function CellVisualizer() {
 
   const [endOfAnimations, setEndOfAnimations] = useState(false);
 
+  const [auxillaryArrays, setAuxillaryArrays] = useState([]);
+  
+  const [auxillaryArrayStates, setAuxillaryArrayStates] = useState();
+
   function resetDefaultArray() {
     currentStep = -1;
     setAlgoSelected(false);
@@ -84,6 +89,8 @@ function CellVisualizer() {
     setEndOfAnimations(false);
   }
 
+  //==================== Sorting Algorithm Functions ===========================
+
   function bubbleSortFunction() {
     resetState();
 
@@ -96,7 +103,6 @@ function CellVisualizer() {
     setSortedElementsStates(sortedElements);
   }
 
-
   function selectionSortFunction() {
     resetState();
 
@@ -105,9 +111,23 @@ function CellVisualizer() {
 
     setArray(allArrayStates[0]);
     setArrayStates(allArrayStates);
+    console.log(allArrayStates);
     setHighlightedCellsStates(animations);
     setSortedElementsStates(sortedElements);
+  }
 
+  function mergeSortFunction() {
+    resetState();
+
+    let {allArrayStates, animations, sortedElements, auxillaryArrays} = 
+        mergeSortHelperCell(array);
+
+    
+    setArrayStates(auxillaryArrays);
+    setHighlightedCellsStates(auxillaryArrays);
+    setSortedElementsStates(auxillaryArrays);
+    setAuxillaryArrayStates(auxillaryArrays);
+    console.log(auxillaryArrays);
   }
 
 
@@ -129,9 +149,11 @@ function CellVisualizer() {
       setStartOfAnimations(false);
     }
     
-    setArray(arrayStates[currentStep]);
-    setHighlightedCells(highlightedCellsStates[currentStep]);
-    setSortedElements(sortedElementsStates[currentStep]);
+    // setArray(arrayStates[currentStep]);
+    // setHighlightedCells(highlightedCellsStates[currentStep]);
+    // setSortedElements(sortedElementsStates[currentStep]);
+    console.log(auxillaryArrayStates[currentStep]);
+    setAuxillaryArrays(auxillaryArrayStates[currentStep]);
   }
 
   function stepBackwardsFunction() {
@@ -150,9 +172,10 @@ function CellVisualizer() {
       setStartOfAnimations(true);
     }
         
-    setArray(arrayStates[currentStep]);
-    setHighlightedCells(highlightedCellsStates[currentStep]);
-    setSortedElements(sortedElementsStates[currentStep]);
+    // setArray(arrayStates[currentStep]);
+    // setHighlightedCells(highlightedCellsStates[currentStep]);
+    // setSortedElements(sortedElementsStates[currentStep]);
+    setAuxillaryArrays(auxillaryArrayStates[currentStep]);
   }
 
   function playAnimationFunction() {
@@ -199,6 +222,7 @@ function CellVisualizer() {
 
         bubbleSort={bubbleSortFunction}
         selectionSort={selectionSortFunction}
+        mergeSort={mergeSortFunction}
 
 
         algoSelected={algoSelected}
@@ -214,31 +238,32 @@ function CellVisualizer() {
         highlightedCells={highlightedCells}
         sortedElements={sortedElements}
         sorted={sorted}
-        auxillaryArrays=
-          {[ 
-            // Levels
-            [
-              // Sub arrays
-              [5, 2, 7, 4], [1, 6, 3, 1]
-            ], 
-            [
-              // Sub arrays
-              [5, 2], [7, 4], [1, 6], [3, 1]
-            ],
-            [
-              // Sub arrays
-              [5], [2], [7], [4], [1], [6], [3], [1]
-            ],
-            [
-              [2, 5], [4, 7], [1, 6], [1, 3]
-            ],
-            [
-              [2, 4, 5, 7], [1, 1, 3, 6]
-            ],
-            [
-              [1, 1, 2, 3, 4, 5, 6, 7]
-            ]
-          ]}
+        // auxillaryArrays=
+        //   {[ 
+        //     // Levels
+        //     [
+        //       // Sub arrays
+        //       [NaN,NaN,NaN,NaN], [NaN,NaN,NaN,NaN]
+        //     ], 
+        //     [
+        //       // Sub arrays
+        //       [NaN,NaN], [NaN,NaN], [NaN,NaN], [NaN,NaN]
+        //     ],
+        //     [
+        //       // Sub arrays
+        //       [NaN], [NaN], [NaN], [NaN], [NaN], [NaN], [NaN], [NaN]
+        //     ],
+        //     [
+        //       [NaN,NaN], [NaN,NaN], [NaN,NaN], [NaN,NaN]
+        //     ],
+        //     [
+        //       [NaN,NaN,NaN,NaN], [NaN,NaN,NaN,NaN]
+        //     ],
+        //     [
+        //       [NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN]
+        //     ]
+        //   ]}
+        auxillaryArrays={auxillaryArrays}
       />
     </div>
   )

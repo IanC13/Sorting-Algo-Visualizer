@@ -16,17 +16,17 @@ function CellVisualizerBody(props) {
             <div className='levels'>
               {levels.map((subarrays) => 
                 <div className='cell-array'>
-                  {subarrays.map((value, idx) => 
+                  {subarrays.map((elementObject) => 
                     <motion.div
                       className='cell-box'
-                      key={idx}
+                      key={elementObject.key}
                       style={{ aspectRatio: 1/1,
                         width: `min(${50}px, ${5}vw)`}}
                       // Framer Motion
                       layout
                       transition={{type:"spring", damping: 20, stiffness: 300}}
                     >
-                    {value}
+                    {elementObject.value}
                     </motion.div>
                   )}
                 </div>

@@ -119,7 +119,8 @@ function mergeSort(
     // Recursively call mergeSort on each part
     mergeSort(
         array, 
-        leftIdx, midIdx, 
+        leftIdx, 
+        midIdx, 
         allArrayStates, 
         animations, 
         currentSmallest, 
@@ -157,135 +158,95 @@ function mergeSort(
     );
   }
   
-    return {
-        allArrayStates, animations, currentSmallest, sortedBars, greyOutBars};
-  } 
+  return {allArrayStates, animations, currentSmallest, sortedBars, greyOutBars};
+} 
   
-  // array is initial array
-  function merge(
-      array, 
-      leftIdx, 
-      midIdx, 
-      rightIdx, 
-      allArrayStates, 
-      animations, 
-      currentSmallest, 
-      sortedBars, 
-      callDepth,
-      greyOutBars) {
-    
-    greyOutBars.push([]);
-    // push indices of the left array
-    for (let i = leftIdx; i < rightIdx+1; i++) {
-      greyOutBars[greyOutBars.length-1].push(i);
-    }
-    
+// array is initial array
+function merge(
+    array, 
+    leftIdx, 
+    midIdx, 
+    rightIdx, 
+    allArrayStates, 
+    animations, 
+    currentSmallest, 
+    sortedBars, 
+    callDepth,
+    greyOutBars) {
   
-    // Lengths of left and right array
-    let lLength = midIdx - leftIdx + 1;
-    let rLength = rightIdx - midIdx;
+  greyOutBars.push([]);
+  // push indices of the left array
+  for (let i = leftIdx; i < rightIdx+1; i++) {
+    greyOutBars[greyOutBars.length-1].push(i);
+  }
+  
 
-    // Temp l and r array
-    let leftArray = new Array(lLength);
-    let rightArray = new Array(rLength);
+  // Lengths of left and right array
+  let lLength = midIdx - leftIdx + 1;
+  let rLength = rightIdx - midIdx;
 
-    // Copy values into the temp arrays
-    for (let i = 0; i < lLength; i++) {
-      leftArray[i] = array[leftIdx + i];
-    }
+  // Temp l and r array
+  let leftArray = new Array(lLength);
+  let rightArray = new Array(rLength);
 
-    for (let j = 0; j < rLength; j++) {
-      rightArray[j] = array[midIdx + 1 + j];
-    }
+  // Copy values into the temp arrays
+  for (let i = 0; i < lLength; i++) {
+    leftArray[i] = array[leftIdx + i];
+  }
 
-    // Looping index
-    let l = 0; // left array
-    let r = 0; // right array
-    let a = leftIdx; // merged array
+  for (let j = 0; j < rLength; j++) {
+    rightArray[j] = array[midIdx + 1 + j];
+  }
 
-    // Tracks how many times we've shifter
-    let shiftCount = 0;
+  // Looping index
+  let l = 0; // left array
+  let r = 0; // right array
+  let a = leftIdx; // merged array
 
-    while (l < lLength && r < rLength) {
-      // highlight comparing bars
-      // highlight insertion position (a)
-      animations.push([leftIdx + l + shiftCount, midIdx + 1 + r]);
+  // Tracks how many times we've shifted
+  let shiftCount = 0;
 
-      if (leftArray[l] < rightArray[r]) {
-        /*
-        * Push a sub array of size 2 as we want to color the correct bar before 
-        * and after swapping before colored = currentSmallest[i][0], after 
-        * swapping, colored = currentSmallest[i][1] when left is smaller, no 
-        * position swap so same bar is colored
-        */
-        currentSmallest.push(
-            [leftIdx + l + shiftCount, leftIdx + l + shiftCount]);
-            
-        array[a] = leftArray[l];
-        l += 1;
-      } else {
-        // when right is smaller, there is a swap
-        // so we color the right first, then the left
-        currentSmallest.push([midIdx + 1 + r, leftIdx + l + shiftCount]);
-        shiftCount += 1;
-        /*
-        * When the element on the right array is larger, we want to 
-        * insert that element to position 'a' while preserving the elements
-        * in the left array that is larger than this.
-        * Therefore we shift the entire array instead of just swapping it: 
-        * [2, 8, 5, 6] -> [2, 5, 8, 6]
-        * Just swapping it works in algorithm as we have a copy of left and 
-        * right
-        */
-        let tmp = rightArray[r];
+  while (l < lLength && r < rLength) {
+    // highlight comparing bars
+    // highlight insertion position (a)
+    animations.push([leftIdx + l + shiftCount, midIdx + 1 + r]);
 
-        for (let i = midIdx + 1 + r; i > a; i--) {
-          array[i] = array[i-1];
-        }
-        array[a] = tmp;
-        r += 1;
-      }
-      
-      // Determine if it is final merge - bars are then sorted into final position
-      if (callDepth === 1) {
-        allArrayStates.push([...array, true]);
-        sortedBars.push([]);
-        for (let i = 0; i <= a; i++) {
-          sortedBars[sortedBars.length - 1].push(i)
-        }
-      } else {
-        allArrayStates.push([...array, false]);
-        sortedBars.push(sortedBars[sortedBars.length - 1]);
-      }
-
-      greyOutBars.push(greyOutBars[greyOutBars.length -1]);
-      
-      a += 1;
-    }
-
-    // At this point, all values from either the left or the right array is 
-    // copied into array. As we know left and right arrays themselves are
-    // sorted, we just add the rest of the not copied array to the end
-    animations.push([]);
-    currentSmallest.push([-1, -1]);
-    while (l < lLength) {
-      animations[animations.length -1].push(leftIdx + l + shiftCount);
-      // highlight insertion bar (l)
-      // highlight insertion position (a)
+    if (leftArray[l] < rightArray[r]) {
+      /*
+      * Push a sub array of size 2 as we want to color the correct bar before 
+      * and after swapping before colored = currentSmallest[i][0], after 
+      * swapping, colored = currentSmallest[i][1] when left is smaller, no 
+      * position swap so same bar is colored
+      */
+      currentSmallest.push(
+          [leftIdx + l + shiftCount, leftIdx + l + shiftCount]);
+          
       array[a] = leftArray[l];
-      a += 1;
-      l += 1
-    }
+      l += 1;
+    } else {
+      // when right is smaller, there is a swap
+      // so we color the right first, then the left
+      currentSmallest.push([midIdx + 1 + r, leftIdx + l + shiftCount]);
+      shiftCount += 1;
+      /*
+      * When the element on the right array is larger, we want to 
+      * insert that element to position 'a' while preserving the elements
+      * in the left array that is larger than this.
+      * Therefore we shift the entire array instead of just swapping it: 
+      * [2, 8, 5, 6] -> [2, 5, 8, 6]
+      * Just swapping it works in algorithm as we have a copy of left and 
+      * right
+      */
+      let tmp = rightArray[r];
 
-    while (r < rLength) {
-      animations[animations.length -1].push(midIdx + 1 + r);
-      // highlight insertion bar (r)
-      // highlight insertion position (a)
-      array[a] = rightArray[r];
-      a += 1;
+      for (let i = midIdx + 1 + r; i > a; i--) {
+        array[i] = array[i-1];
+      }
+      array[a] = tmp;
       r += 1;
     }
     
+    // Determine if it is final merge - bars are then sorted into final position
     if (callDepth === 1) {
       allArrayStates.push([...array, true]);
       sortedBars.push([]);
@@ -296,8 +257,46 @@ function mergeSort(
       allArrayStates.push([...array, false]);
       sortedBars.push(sortedBars[sortedBars.length - 1]);
     }
-    return {
-        allArrayStates, animations, currentSmallest, sortedBars, greyOutBars};
+
+    greyOutBars.push(greyOutBars[greyOutBars.length -1]);
+    
+    a += 1;
+  }
+
+  // At this point, all values from either the left or the right array is 
+  // copied into array. As we know left and right arrays themselves are
+  // sorted, we just add the rest of the not copied array to the end
+  animations.push([]);
+  currentSmallest.push([-1, -1]);
+  while (l < lLength) {
+    animations[animations.length -1].push(leftIdx + l + shiftCount);
+    // highlight insertion bar (l)
+    // highlight insertion position (a)
+    array[a] = leftArray[l];
+    a += 1;
+    l += 1
+  }
+
+  while (r < rLength) {
+    animations[animations.length -1].push(midIdx + 1 + r);
+    // highlight insertion bar (r)
+    // highlight insertion position (a)
+    array[a] = rightArray[r];
+    a += 1;
+    r += 1;
+  }
+  
+  if (callDepth === 1) {
+    allArrayStates.push([...array, true]);
+    sortedBars.push([]);
+    for (let i = 0; i <= a; i++) {
+      sortedBars[sortedBars.length - 1].push(i)
+    }
+  } else {
+    allArrayStates.push([...array, false]);
+    sortedBars.push(sortedBars[sortedBars.length - 1]);
+  }
+  return {allArrayStates, animations, currentSmallest, sortedBars, greyOutBars};
 }
 
 export default mergeSortHelperBar;
