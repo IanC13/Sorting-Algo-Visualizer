@@ -211,7 +211,7 @@ function merge(
     // highlight insertion position (a)
     animations.push([leftIdx + l + shiftCount, midIdx + 1 + r]);
 
-    if (leftArray[l] < rightArray[r]) {
+    if (leftArray[l] <= rightArray[r]) {
       /*
       * Push a sub array of size 2 as we want to color the correct bar before 
       * and after swapping before colored = currentSmallest[i][0], after 

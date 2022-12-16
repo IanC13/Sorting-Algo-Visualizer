@@ -32,26 +32,29 @@ function CellVisualizer() {
   const [sorted, setSorted] = useState(false);
 
   const [array, setArray] = useState(startingArray);
-
   const [arrayStates, setArrayStates] = useState();
   
   const [highlightedCells, setHighlightedCells] = useState();
-
   const [highlightedCellsStates, setHighlightedCellsStates] = useState();
 
   const [sortedElements, setSortedElements] = useState();
-
   const [sortedElementsStates, setSortedElementsStates] = useState();
 
   const [running, setRunning] = useState(false);
 
   const [startOfAnimations, setStartOfAnimations] = useState(false);
-
   const [endOfAnimations, setEndOfAnimations] = useState(false);
 
   const [auxillaryArrays, setAuxillaryArrays] = useState([]);
-  
   const [auxillaryArrayStates, setAuxillaryArrayStates] = useState();
+
+  const [greyOutCells, setGreyOutCells] = useState([]);
+  const [greyOutCellStates, setGreyOutCellStates] = useState();
+
+  const [auxGreyOutCells, setAuxGreyOutCells] = useState([]);
+  const [auxGreyOutCellStates, setAuxGreyOutCellStates] = useState();
+
+
 
   function resetDefaultArray() {
     currentStep = -1;
@@ -119,15 +122,20 @@ function CellVisualizer() {
   function mergeSortFunction() {
     resetState();
 
-    let {allArrayStates, animations, sortedElements, auxillaryArrays} = 
+    let {allArrayStates, animations, sortedElements, auxillaryArrays, greyOutCells, auxGreyOutCells} = 
         mergeSortHelperCell(array);
+
+    console.log(greyOutCells);
+    console.log(auxillaryArrays);
+    console.log(auxGreyOutCells);
 
     
     setArrayStates(auxillaryArrays);
     setHighlightedCellsStates(auxillaryArrays);
     setSortedElementsStates(auxillaryArrays);
     setAuxillaryArrayStates(auxillaryArrays);
-    console.log(auxillaryArrays);
+    setGreyOutCellStates(greyOutCells);
+    setAuxGreyOutCellStates(auxGreyOutCells);
   }
 
 
@@ -152,8 +160,11 @@ function CellVisualizer() {
     // setArray(arrayStates[currentStep]);
     // setHighlightedCells(highlightedCellsStates[currentStep]);
     // setSortedElements(sortedElementsStates[currentStep]);
-    console.log(auxillaryArrayStates[currentStep]);
+    // console.log(auxillaryArrayStates[currentStep]);
+    setAuxGreyOutCells(auxGreyOutCellStates[currentStep]);
+    console.log(auxGreyOutCells);
     setAuxillaryArrays(auxillaryArrayStates[currentStep]);
+    setGreyOutCells(greyOutCellStates[currentStep]);
   }
 
   function stepBackwardsFunction() {
@@ -176,6 +187,8 @@ function CellVisualizer() {
     // setHighlightedCells(highlightedCellsStates[currentStep]);
     // setSortedElements(sortedElementsStates[currentStep]);
     setAuxillaryArrays(auxillaryArrayStates[currentStep]);
+    setGreyOutCells(greyOutCellStates[currentStep]);
+    setAuxGreyOutCells(auxGreyOutCellStates[currentStep]);
   }
 
   function playAnimationFunction() {
@@ -238,6 +251,8 @@ function CellVisualizer() {
         highlightedCells={highlightedCells}
         sortedElements={sortedElements}
         sorted={sorted}
+        greyOutCells={greyOutCells}
+        auxGreyOutCells={auxGreyOutCells}
         // auxillaryArrays=
         //   {[ 
         //     // Levels
