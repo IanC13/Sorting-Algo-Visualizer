@@ -27,7 +27,8 @@ function CellVisualizerBody(props) {
                       key={elementObject.key}
                       style={{ aspectRatio: 1/1,
                               width: `min(${50}px, ${5}vw)`,
-                              backgroundColor: (props.auxGreyOutCells[levelIdx][subIdx].includes(elementObject.key)) ? GREY_OUT : DEFAULT_COLOR
+                              backgroundColor: (props.auxHighlightedCells[levelIdx][subIdx].includes(elementObject.key)) ? HIGHLIGHT_COLOR : 
+                                              (props.auxGreyOutCells[levelIdx][subIdx].includes(elementObject.key)) ? GREY_OUT : DEFAULT_COLOR
                               
                               }}
                       // Framer Motion

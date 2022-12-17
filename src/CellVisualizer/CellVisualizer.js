@@ -54,6 +54,8 @@ function CellVisualizer() {
   const [auxGreyOutCells, setAuxGreyOutCells] = useState([]);
   const [auxGreyOutCellStates, setAuxGreyOutCellStates] = useState();
 
+  const [auxHighlightedCells, setAuxHighlightedCells] = useState();
+  const [auxHighlightedCellStates, setAuxHighlightedCellStates] = useState();
 
 
   function resetDefaultArray() {
@@ -100,11 +102,28 @@ function CellVisualizer() {
     let {allArrayStates, animations, sortedElements} = 
         bubbleSortHelperCell(array);
 
+        
     setArray(allArrayStates[0]);
     setArrayStates(allArrayStates);
     setHighlightedCellsStates(animations);
     setSortedElementsStates(sortedElements);
+        
+    let length = allArrayStates.length;
+    // Not used states
+    let placeholder = [];
+    for (let i = 0; i < length; i++) {
+      placeholder.push([]);
+    }
+    setAuxillaryArrays(placeholder);
+    setAuxillaryArrayStates(placeholder);
+    setGreyOutCells(placeholder);
+    setGreyOutCellStates(placeholder);
+    setAuxGreyOutCells(placeholder);
+    setAuxGreyOutCellStates(placeholder);
+    setAuxHighlightedCells(placeholder);
+    setAuxHighlightedCellStates(placeholder);
   }
+
 
   function selectionSortFunction() {
     resetState();
@@ -114,25 +133,55 @@ function CellVisualizer() {
 
     setArray(allArrayStates[0]);
     setArrayStates(allArrayStates);
-    console.log(allArrayStates);
     setHighlightedCellsStates(animations);
     setSortedElementsStates(sortedElements);
+
+    let length = allArrayStates.length;
+    // Not used states
+    let placeholder = [];
+    for (let i = 0; i < length; i++) {
+      placeholder.push([]);
+    }
+    setAuxillaryArrays(placeholder);
+    setAuxillaryArrayStates(placeholder);
+    setGreyOutCells(placeholder);
+    setGreyOutCellStates(placeholder);
+    setAuxGreyOutCells(placeholder);
+    setAuxGreyOutCellStates(placeholder);
+    setAuxHighlightedCells(placeholder);
+    setAuxHighlightedCellStates(placeholder);
   }
 
   function mergeSortFunction() {
     resetState();
 
-    let {allArrayStates, animations, sortedElements, auxillaryArrays, greyOutCells, auxGreyOutCells} = 
+    let {allArrayStates, auxAnimations, sortedElements, auxillaryArrays, greyOutCells, auxGreyOutCells} = 
         mergeSortHelperCell(array);
 
     console.log(greyOutCells);
     console.log(auxillaryArrays);
     console.log(auxGreyOutCells);
+    console.log(allArrayStates);
+    console.log(auxAnimations);
 
+
+
+    let length = allArrayStates.length;
+    // Not used states
+    let placeholder = [];
+    for (let i = 0; i < length; i++) {
+      placeholder.push([]);
+    }
     
-    setArrayStates(auxillaryArrays);
+
+
+    setArrayStates(allArrayStates);
+
     setHighlightedCellsStates(auxillaryArrays);
     setSortedElementsStates(auxillaryArrays);
+
+    setAuxHighlightedCellStates(auxAnimations);
+
     setAuxillaryArrayStates(auxillaryArrays);
     setGreyOutCellStates(greyOutCells);
     setAuxGreyOutCellStates(auxGreyOutCells);
@@ -157,7 +206,7 @@ function CellVisualizer() {
       setStartOfAnimations(false);
     }
     
-    // setArray(arrayStates[currentStep]);
+    setArray(arrayStates[currentStep]);
     // setHighlightedCells(highlightedCellsStates[currentStep]);
     // setSortedElements(sortedElementsStates[currentStep]);
     // console.log(auxillaryArrayStates[currentStep]);
@@ -165,6 +214,8 @@ function CellVisualizer() {
     console.log(auxGreyOutCells);
     setAuxillaryArrays(auxillaryArrayStates[currentStep]);
     setGreyOutCells(greyOutCellStates[currentStep]);
+
+    setAuxHighlightedCells(auxHighlightedCellStates[currentStep]);
   }
 
   function stepBackwardsFunction() {
@@ -189,6 +240,7 @@ function CellVisualizer() {
     setAuxillaryArrays(auxillaryArrayStates[currentStep]);
     setGreyOutCells(greyOutCellStates[currentStep]);
     setAuxGreyOutCells(auxGreyOutCellStates[currentStep]);
+    setAuxHighlightedCells(auxHighlightedCellStates[currentStep]);
   }
 
   function playAnimationFunction() {
@@ -253,32 +305,8 @@ function CellVisualizer() {
         sorted={sorted}
         greyOutCells={greyOutCells}
         auxGreyOutCells={auxGreyOutCells}
-        // auxillaryArrays=
-        //   {[ 
-        //     // Levels
-        //     [
-        //       // Sub arrays
-        //       [NaN,NaN,NaN,NaN], [NaN,NaN,NaN,NaN]
-        //     ], 
-        //     [
-        //       // Sub arrays
-        //       [NaN,NaN], [NaN,NaN], [NaN,NaN], [NaN,NaN]
-        //     ],
-        //     [
-        //       // Sub arrays
-        //       [NaN], [NaN], [NaN], [NaN], [NaN], [NaN], [NaN], [NaN]
-        //     ],
-        //     [
-        //       [NaN,NaN], [NaN,NaN], [NaN,NaN], [NaN,NaN]
-        //     ],
-        //     [
-        //       [NaN,NaN,NaN,NaN], [NaN,NaN,NaN,NaN]
-        //     ],
-        //     [
-        //       [NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN]
-        //     ]
-        //   ]}
         auxillaryArrays={auxillaryArrays}
+        auxHighlightedCells={auxHighlightedCells}
       />
     </div>
   )

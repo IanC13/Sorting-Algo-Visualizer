@@ -2,10 +2,11 @@ import { toContainElement } from "@testing-library/jest-dom/dist/matchers";
 
 function mergeSortHelperCell(array) {
   let newArray = array.slice();
+  let staticArray = array.slice();
   let length = newArray.length;
 
   let allArrayStates = [];
-  let animations = [];
+  let auxAnimations = [];
   let sortedElements = [];
   let auxillaryArrays = [];
   let greyOutCells = [];
@@ -32,13 +33,14 @@ function mergeSortHelperCell(array) {
   }
 
 
-  ({allArrayStates, animations, sortedElements, auxillaryArrays} = 
+  ({allArrayStates, auxAnimations, sortedElements, auxillaryArrays} = 
         mergeSort(
             newArray,
             /* start Index */ 0, 
             /* end Index */ length-1, 
+            staticArray,
             allArrayStates,
-            animations,
+            auxAnimations,
             sortedElements,
             auxillaryArrays,
             greyOutCells,
@@ -50,15 +52,16 @@ function mergeSortHelperCell(array) {
         )
   );
 
-  return { allArrayStates, animations, sortedElements, auxillaryArrays, greyOutCells, auxGreyOutCells };
+  return { allArrayStates, auxAnimations, sortedElements, auxillaryArrays, greyOutCells, auxGreyOutCells };
 }
 
 function mergeSort(
     array, 
     leftIdx, 
     rightIdx, 
+    staticArray,
     allArrayStates, 
-    animations, 
+    auxAnimations,
     sortedElements, 
     auxillaryArrays,
     greyOutCells,
@@ -75,10 +78,11 @@ function mergeSort(
   if (leftIdx < rightIdx) {
     // length of passed in array
 
-    buildAuxAnimationPlaceholder(auxillaryArrays, height);
     // Find middle of array
     let midIdx = Math.floor((leftIdx + rightIdx) / 2);
+    
 
+    buildAuxAnimationPlaceholder(auxillaryArrays, height);
     /* Inserts the left part of the array into auxillary array to render the 
      * recursion
      */
@@ -91,6 +95,12 @@ function mergeSort(
 
     // grey out cells of aux arrays by level
     findAuxGreyOutCells(auxGreyOutCells, array, midIdx+1, currentArrayLength/2, callDepth, subArrayPos, height);
+
+    allArrayStates.push([...staticArray]);
+    buildAuxAnimationPlaceholder(auxAnimations, height);
+
+    // TODO: AUXANIMATIONS IS HIGHLIGHTING EVERY CELL WITH THE KEY IN ALL LEVELS
+    // WANT IT TO ONLY DO IT IN THE MERGE LEVEL
    
 
     // Recursively call mergeSort on left part
@@ -98,8 +108,9 @@ function mergeSort(
         array, 
         leftIdx, 
         midIdx, 
+        staticArray,
         allArrayStates, 
-        animations, 
+        auxAnimations,
         sortedElements, 
         auxillaryArrays,
         greyOutCells,
@@ -121,12 +132,16 @@ function mergeSort(
     findAuxGreyOutCells(auxGreyOutCells, array, leftIdx, currentArrayLength/2, callDepth, subArrayPos, height);
     subArrayPos[callDepth] += 1;
 
+    allArrayStates.push([...staticArray]);
+    buildLevelStructure(auxAnimations, height);
+
     mergeSort(
         array, 
         midIdx + 1, 
         rightIdx, 
+        staticArray,
         allArrayStates, 
-        animations, 
+        auxAnimations,
         sortedElements, 
         auxillaryArrays,
         greyOutCells,
@@ -138,15 +153,20 @@ function mergeSort(
     );
     
     // Un grey sub arrays involved in merging before merge
-    auxUngrey(auxGreyOutCells, callDepth, height, divisionInsertPosition)
+    auxUngrey(auxGreyOutCells, callDepth, height, divisionInsertPosition);
+    
+    if(callDepth === 0) {
+      findGreyOutCells(greyOutCells, array, 0, 0, callDepth);
+    }
 
     merge(
         array, 
         leftIdx, 
         midIdx, 
         rightIdx, 
+        staticArray,
         allArrayStates, 
-        animations, 
+        auxAnimations,
         sortedElements, 
         auxillaryArrays,
         greyOutCells,
@@ -161,10 +181,12 @@ function mergeSort(
       findSortedGreyOutCells(auxGreyOutCells, array, rightIdx+1, callDepth, height);
       greyOutCells.push(greyOutCells[greyOutCells.length -1]);
       buildAuxAnimationPlaceholder(auxillaryArrays, height);
-    }
+      allArrayStates.push([...staticArray]);
+      buildLevelStructure(auxAnimations, height);
+    } 
   }
 
-  return {allArrayStates, animations, sortedElements, auxillaryArrays, greyOutCells , auxGreyOutCells}
+  return {allArrayStates, auxAnimations, sortedElements, auxillaryArrays, greyOutCells , auxGreyOutCells}
 }
 
 // array is initial array
@@ -173,8 +195,9 @@ function merge(
     leftIdx, 
     midIdx, 
     rightIdx, 
+    staticArray,
     allArrayStates, 
-    animations, 
+    auxAnimations,
     sortedElements, 
     auxillaryArrays,
     greyOutCells,
@@ -213,12 +236,48 @@ function merge(
 
 
   while (l < lLength && r < rLength) {
+    let levelLength = auxAnimations[auxAnimations.length -1][callDepth].length;
+
+    // Only happens once
+    if (l === 0 && r === 0) {
+      buildAuxAnimationPlaceholder(auxillaryArrays, height);
+      greyOutCells.push(greyOutCells[greyOutCells.length -1]);
+      if (a !== leftIdx) {
+        auxGreyOutCells.push(structuredClone(auxGreyOutCells[auxGreyOutCells.length -1]));
+      }
+      allArrayStates.push([...staticArray]);
+  
+      buildLevelStructure(auxAnimations, height);
+      for (let i = 0; i < levelLength; i++){
+        auxAnimations[auxAnimations.length -1][height*2 - 2 - callDepth][i].push(leftArray[l].key);
+        auxAnimations[auxAnimations.length -1][height*2 - 2 - callDepth][i].push(rightArray[r].key);
+      }
+    }
+
     if (leftArray[l].value <= rightArray[r].value) {         
       array[a] = leftArray[l];
       l += 1;
+
+      buildLevelStructure(auxAnimations, height);
+      for (let j = 0; j < levelLength; j++){
+        auxAnimations[auxAnimations.length -1][height*2 - 2 - callDepth][j].push(rightArray[r].key);
+        if (l < lLength) {
+          auxAnimations[auxAnimations.length -1][height*2 - 2 - callDepth][j].push(leftArray[l].key);
+        }
+      }
+
     } else {
       array[a] = rightArray[r];
       r += 1;
+
+      buildLevelStructure(auxAnimations, height);
+      for (let j = 0; j < levelLength; j++){
+        auxAnimations[auxAnimations.length -1][height*2 - 2 - callDepth][j].push(leftArray[l].key);
+        if (r < rLength) {
+          auxAnimations[auxAnimations.length -1][height*2 - 2 - callDepth][j].push(rightArray[r].key);
+        }
+      }
+      
     }
     a += 1;
 
@@ -227,12 +286,9 @@ function merge(
         divisionInsertPosition[mergeInsertionPosition], 
         1, 
         array.slice(leftIdx, a));
-    
     greyOutCells.push(greyOutCells[greyOutCells.length -1]);    
-
-    if (a !== leftIdx+1) {
-      auxGreyOutCells.push(structuredClone(auxGreyOutCells[auxGreyOutCells.length -1]))
-    }
+    auxGreyOutCells.push(structuredClone(auxGreyOutCells[auxGreyOutCells.length -1]));
+    allArrayStates.push([...staticArray]);
   }
 
   while (l < lLength) {
@@ -247,6 +303,16 @@ function merge(
         array.slice(leftIdx, a));
     greyOutCells.push(greyOutCells[greyOutCells.length -1]);
     auxGreyOutCells.push(structuredClone(auxGreyOutCells[auxGreyOutCells.length -1]))
+
+    allArrayStates.push([...staticArray]);
+    
+    let levelLength = auxAnimations[auxAnimations.length -1][callDepth].length;
+    buildLevelStructure(auxAnimations, height);
+    for (let j = 0; j < levelLength; j++){
+      if (l < lLength) {
+        auxAnimations[auxAnimations.length -1][height*2 - 2 - callDepth][j].push(leftArray[l].key);
+      }
+    }
   }
 
   while (r < rLength) {
@@ -262,51 +328,66 @@ function merge(
 
     greyOutCells.push(greyOutCells[greyOutCells.length -1]);
     auxGreyOutCells.push(structuredClone(auxGreyOutCells[auxGreyOutCells.length -1]))
+    allArrayStates.push([...staticArray]);
+
+    let levelLength = auxAnimations[auxAnimations.length -1][callDepth].length;
+    buildLevelStructure(auxAnimations, height);
+    for (let j = 0; j < levelLength; j++){
+      if (r < rLength) {
+        auxAnimations[auxAnimations.length -1][height*2 - 2 - callDepth][j].push(rightArray[r].key);
+      }
+    }
   }
   
 
   divisionInsertPosition[mergeInsertionPosition] += 1;
     
-  return {allArrayStates, animations, sortedElements, auxillaryArrays, greyOutCells , auxGreyOutCells};
+  return {allArrayStates, auxAnimations, sortedElements, auxillaryArrays, greyOutCells , auxGreyOutCells};
   
 }
 
 
-function buildAuxAnimationPlaceholder(auxillaryArrays, height) {
+function buildAuxAnimationPlaceholder(array, height) {
   // On all except first call,
-  if (auxillaryArrays.length !== 0) {
+  if (array.length !== 0) {
     // Push a deep copy of the last states
     // Each idx of auxillaryArrays is a particular state - animations
-    auxillaryArrays.push(structuredClone(auxillaryArrays[auxillaryArrays.length -1]));
+    array.push(structuredClone(array[array.length -1]));
   } else {
     // First call
-    auxillaryArrays.push([]);
 
     /* Push place holder arrays for the dividing and merge levels so that the 
     * rendered cells are aligned correctly 
     */
-
-    // For each level - height * 2 as we take into account the merge levels
-    for (let i = 0; i < height*2; i++) {
-      // sub array for each level
-      auxillaryArrays[auxillaryArrays.length-1].push([]);
-
-      // Calculates the number of sub arrays each level will have
-      // when i > height, we are calculating for merge levels
-      let power = i < height ? Math.pow(2, i+1) : Math.pow(2, height*2 - i -1);
-
-      for (let j = 0; j < power; j++) {
-        auxillaryArrays[auxillaryArrays.length-1]
-            [auxillaryArrays[auxillaryArrays.length-1].length-1].push([]);
-      }
-    }
+    buildLevelStructure(array, height);
+    
     /* We are left with [ [[] --> 2^(i+1)], --> height NoOfTimes,
     * [[] --> 2^(height*2 - i - 1)], --> height NoOfTimes ]    
     */
   }
 }
 
+function buildLevelStructure(array, height){
+  array.push([]);
+  
+  // For each level - height * 2 as we take into account the merge levels
+  for (let i = 0; i < height*2; i++) {
+    // sub array for each level
+    array[array.length-1].push([]);
+
+    // Calculates the number of sub arrays each level will have
+    // when i > height, we are calculating for merge levels
+    let power = i < height ? Math.pow(2, i+1) : Math.pow(2, height*2 - i -1);
+
+    for (let j = 0; j < power; j++) {
+      array[array.length-1]
+          [array[array.length-1].length-1].push([]);
+    }
+  }
+}
+
 function findGreyOutCells(cellArray, array, start, length, callDepth) {
+
   if (callDepth === 0) {
     // new animation idx
     cellArray.push([]);
@@ -322,21 +403,8 @@ function findGreyOutCells(cellArray, array, start, length, callDepth) {
 function findAuxGreyOutCells(cellArray, array, start, length, callDepth, subArrayPos, height){
   if (cellArray.length === 0) {
     // Push placeholders
-    cellArray.push([]);
-    // for (let i = 0; i < 6; i++) {
-    //   cellArray[cellArray.length -1].push([]);
-    // }
-
-    for (let i = 0; i < height*2; i++) {
-      cellArray[cellArray.length-1].push([]);
-
-      let power = i < height ? Math.pow(2, i+1) : Math.pow(2, height*2 - i -1);
-
-      for (let j = 0; j < power; j++) {
-        cellArray[cellArray.length-1]
-            [cellArray[cellArray.length-1].length-1].push([]);
-      }
-    }
+    buildLevelStructure(cellArray, height);
+    
   } else {
     if (callDepth !== 0) {
       // Push previous state so other levels don't change
@@ -360,9 +428,8 @@ function findAuxGreyOutCells(cellArray, array, start, length, callDepth, subArra
 function auxUngrey(aux, callDepth, height, divisionInsertPosition) {
   aux.push(structuredClone(aux[aux.length -1]));
 
-
   for (let i = callDepth-1; i < height*2 - 1 - callDepth; i++) {      
-    // Semi hard coded
+    // Semi hard coded - for array of length 8
     if (callDepth === 1) {
 
       let sub = i < height ? Math.pow(2, i) : Math.pow(2, height*2 - i -2);
