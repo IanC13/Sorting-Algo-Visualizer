@@ -23,7 +23,7 @@ function App() {
         </div>
 
         <div className='view-button'>
-          {viewState}
+          <p id='view-state-display'>{viewState.toUpperCase()}</p>
           <ToggleButton 
             onViewStateChange={handleViewStateChange}
           />

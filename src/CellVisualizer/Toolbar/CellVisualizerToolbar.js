@@ -1,6 +1,8 @@
 import React from 'react';
 import '../../Styling/VisualizerToolbar.css';
 
+const DEFAULT_COLOR = '#A51C30';
+const SELECTED_COLOR = '#535353';
 
 function CellVisualizerToolbar(props) {
 
@@ -18,6 +20,10 @@ function CellVisualizerToolbar(props) {
           <button 
             onClick={props.bubbleSort} 
             disabled={props.running}
+            style={{
+              backgroundColor: props.selectedAlgorithm === 'BUBBLE' ? 
+                  SELECTED_COLOR : DEFAULT_COLOR
+            }}
           >
             Bubble Sort
           </button>
@@ -25,6 +31,10 @@ function CellVisualizerToolbar(props) {
           <button 
             onClick={props.selectionSort} 
             disabled={props.running}
+            style={{
+              backgroundColor: props.selectedAlgorithm === 'SELECTION' ? 
+                  SELECTED_COLOR : DEFAULT_COLOR
+            }}
           >
             Selection Sort
           </button>
@@ -33,6 +43,10 @@ function CellVisualizerToolbar(props) {
             id='merge-sort-button'
             onClick={props.mergeSort}
             disabled={props.running}
+            style={{
+              backgroundColor: props.selectedAlgorithm === 'MERGE' ? 
+                  SELECTED_COLOR : DEFAULT_COLOR
+            }}
           >
             Merge Sort
           </button>

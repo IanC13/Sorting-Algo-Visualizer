@@ -107,19 +107,25 @@ function CellVisualizerBody(props) {
                               ? 0.5 : 1 
                   }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{type:"spring", damping: 20, stiffness: 300, duration: 3}}
+                  transition={{type:"spring", damping: 20, stiffness: 300}}
                 >
                   {subarrays.map((elementObject) => 
                     <div
                       className='cell-box'
                       key={elementObject.key}
                       style={{ aspectRatio: 1/1,
-                              width: `min(${50}px, ${5}vw)`,
-                              backgroundColor: (props.auxSortedElements[levelIdx][subIdx].includes(elementObject.key)) ? SORTED_COLOR :
-                                                (props.auxSorted === true) ? GREY_OUT :
-                                                (props.auxHighlightedCells[levelIdx][subIdx].includes(elementObject.key)) ? HIGHLIGHT_COLOR : 
-                                              (props.auxGreyOutCells[levelIdx][subIdx].includes(elementObject.key)) ? GREY_OUT : DEFAULT_COLOR
-                              
+                              width: `min(${55}px, ${5}vw)`,
+                              backgroundColor: 
+                                  (props.auxSortedElements[levelIdx]
+                                      [subIdx].includes(elementObject.key)) ? 
+                                          SORTED_COLOR :
+                                  (props.auxSorted === true) ? GREY_OUT :
+                                  (props.auxHighlightedCells[levelIdx]
+                                      [subIdx].includes(elementObject.key)) ? 
+                                          HIGHLIGHT_COLOR : 
+                                  (props.auxGreyOutCells[levelIdx]
+                                      [subIdx].includes(elementObject.key)) ? 
+                                          GREY_OUT : DEFAULT_COLOR
                               }}
                     >
                     {elementObject.value}
@@ -146,7 +152,7 @@ function CellVisualizerBody(props) {
               style={ { aspectRatio: 1/1,
                         width: (props.auxillaryArrays.length === 0 ? 
                             `${100/(props.array.length)}%` : 
-                            `min(${50}px, ${5}vw)`
+                            `min(${55}px, ${5}vw)`
                         ),
                         backgroundColor: (
                             (props.sorted === true) ? SORTED_COLOR :

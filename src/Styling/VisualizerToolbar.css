@@ -112,7 +112,7 @@ button {
 }
 
 button:hover {
-  background-color: #a51c31c5;
+  background-color: #a51c31c5 !important;
 }
 
 button:disabled {
@@ -121,7 +121,7 @@ button:disabled {
 }
 
 button:disabled:hover {
-  background-color: grey;
+  background-color: grey !important;
 }
 
 /*  Cell Visualizer Specific */

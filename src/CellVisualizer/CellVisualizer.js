@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import '../Styling/VisualizerContainer.css';
 
 import CellVisualizerToolbar from './Toolbar/CellVisualizerToolbar';
@@ -10,14 +10,15 @@ import mergeSortHelperCell from '../Algorithms/Cell/MergeSortCell';
 
 // Obj necessary as Framer Motion tracks the key for animation
 const startingArray = [
-    {key: 5, value: 10}, 
-    {key: 2, value: 3}, 
-    {key: 7, value: 12}, 
-    {key: 4, value: 6}, 
-    {key: 1, value: 0}, 
-    {key: 6, value: 9}, 
-    {key: 3, value: 15}, 
-    {key: 0, value: 6} ];
+    {key: 0, value: 15}, 
+    {key: 1, value: 13}, 
+    {key: 2, value: 7}, 
+    {key: 3, value: 19}, 
+    {key: 4, value: 9}, 
+    {key: 5, value: 15}, 
+    {key: 6, value: 2},
+    {key: 7, value: 6},
+  ];
 
 // Tracks the current step in the algorithm when stepping through it
 let currentStep = -1;
@@ -185,8 +186,12 @@ function CellVisualizer() {
     resetState();
     setSelectedAlgorithm('MERGE');
 
-    let {allArrayStates, auxSortedElements, auxillaryArrays, auxAnimations, greyOutCells, auxGreyOutCells} = 
-        mergeSortHelperCell(array);
+    let { allArrayStates, 
+          auxSortedElements, 
+          auxillaryArrays, 
+          auxAnimations, 
+          greyOutCells, 
+          auxGreyOutCells } = mergeSortHelperCell(array);
     
     setArrayStates(allArrayStates);
     setAuxillaryArrayStates(auxillaryArrays);
@@ -194,7 +199,7 @@ function CellVisualizer() {
     setGreyOutCellStates(greyOutCells);
     setAuxGreyOutCellStates(auxGreyOutCells);   
     setAuxSortedElementStates(auxSortedElements);
-    
+  
     let length = allArrayStates.length;
     // Not used states
     let placeholder = [];
@@ -317,8 +322,8 @@ function CellVisualizer() {
         selectionSort={selectionSortFunction}
         mergeSort={mergeSortFunction}
 
-
         algoSelected={algoSelected}
+        selectedAlgorithm={selectedAlgorithm}
 
         play={playAnimationFunction}
         pause={pauseAnimationFunction}

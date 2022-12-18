@@ -8,7 +8,7 @@ import selectionSortHelperBar from '../Algorithms/BarView/SelectionSortBar';
 import mergeSortHelperBar from '../Algorithms/BarView/MergeSortBar';
 
 const MIN_DELAY = 1;
-const MAX_DELAY = 250;
+const MAX_DELAY = 100;
 
 const MIN_NUMBER_OF_ELEMENTS = 10;
 const MAX_NUMBER_OF_ELEMENTS = 100;
