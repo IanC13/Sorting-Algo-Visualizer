@@ -1,3 +1,5 @@
+import { toBeEmptyDOMElement } from "@testing-library/jest-dom/dist/matchers";
+
 function mergeSortHelperCell(array) {
   let newArray = array.slice();
   let staticArray = array.slice();
@@ -5,7 +7,7 @@ function mergeSortHelperCell(array) {
 
   let allArrayStates = [];
   let auxAnimations = [];
-  let sortedElements = [];
+  let auxSortedElements = [];
   let auxillaryArrays = [];
   let greyOutCells = [];
   let auxGreyOutCells = [];
@@ -31,7 +33,8 @@ function mergeSortHelperCell(array) {
   }
 
 
-  ({allArrayStates, auxAnimations, sortedElements, auxillaryArrays} = 
+  ({allArrayStates, auxAnimations, auxSortedElements, auxillaryArrays, greyOutCells , auxGreyOutCells} = 
+    
         mergeSort(
             newArray,
             /* start Index */ 0, 
@@ -39,7 +42,7 @@ function mergeSortHelperCell(array) {
             staticArray,
             allArrayStates,
             auxAnimations,
-            sortedElements,
+            auxSortedElements,
             auxillaryArrays,
             greyOutCells,
             auxGreyOutCells,
@@ -51,7 +54,7 @@ function mergeSortHelperCell(array) {
   );
   
 
-  // Add 0th state where it is just primary array
+  // Add 0th state where it is just primary array ==============================
   allArrayStates.splice(0, 0, allArrayStates[0]);
 
   // Add structure on the end
@@ -70,9 +73,29 @@ function mergeSortHelperCell(array) {
   buildLevelStructure(auxGreyOutCells, height);
   auxGreyOutCells.splice(0, 0, auxGreyOutCells[auxGreyOutCells.length-1]);
   auxGreyOutCells = auxGreyOutCells.slice(0, auxGreyOutCells.length-1);
+
+  auxSortedElements.splice(0, 0, []);
+  let tmpIdx;
+  for (let i = auxillaryArrays.length-1; i > -1; i--) {
+    if (auxillaryArrays[i][auxillaryArrays[i].length-1][0].length === 0) {
+      tmpIdx = i;
+      break;
+    }
+  }
+  tmpIdx += 1;
+
+  for (let i = tmpIdx; i < auxillaryArrays.length; i++) {
+    let tmpLength = auxillaryArrays[i][auxillaryArrays[i].length-1][0].length;
+    for (let j = 0; j < tmpLength; j++) {
+      auxSortedElements[i][auxillaryArrays[i].length-1][0].push(auxillaryArrays[i][auxillaryArrays[i].length-1][0][j].key);
+    }
+
+    
+  }
+
   // ===========================================================================
 
-  return { allArrayStates, sortedElements, auxillaryArrays, auxAnimations, greyOutCells, auxGreyOutCells };
+  return { allArrayStates, auxSortedElements, auxillaryArrays, auxAnimations, greyOutCells, auxGreyOutCells };
 }
 
 function mergeSort(
@@ -82,7 +105,7 @@ function mergeSort(
     staticArray,
     allArrayStates, 
     auxAnimations,
-    sortedElements, 
+    auxSortedElements, 
     auxillaryArrays,
     greyOutCells,
     auxGreyOutCells,
@@ -119,6 +142,7 @@ function mergeSort(
 
     allArrayStates.push([...staticArray]);
     buildAuxAnimationPlaceholder(auxAnimations, height);
+    buildAuxAnimationPlaceholder(auxSortedElements, height);
     // =========================================================================
 
     // Recursively call mergeSort on left part
@@ -129,7 +153,7 @@ function mergeSort(
         staticArray,
         allArrayStates, 
         auxAnimations,
-        sortedElements, 
+        auxSortedElements, 
         auxillaryArrays,
         greyOutCells,
         auxGreyOutCells,
@@ -153,6 +177,7 @@ function mergeSort(
 
     allArrayStates.push([...staticArray]);
     buildLevelStructure(auxAnimations, height);
+    buildAuxAnimationPlaceholder(auxSortedElements, height);
     // =========================================================================
 
     mergeSort(
@@ -162,7 +187,7 @@ function mergeSort(
         staticArray,
         allArrayStates, 
         auxAnimations,
-        sortedElements, 
+        auxSortedElements, 
         auxillaryArrays,
         greyOutCells,
         auxGreyOutCells,
@@ -189,7 +214,7 @@ function mergeSort(
         staticArray,
         allArrayStates, 
         auxAnimations,
-        sortedElements, 
+        auxSortedElements, 
         auxillaryArrays,
         greyOutCells,
         auxGreyOutCells,
@@ -206,11 +231,12 @@ function mergeSort(
       buildAuxAnimationPlaceholder(auxillaryArrays, height);
       allArrayStates.push([...staticArray]);
       buildLevelStructure(auxAnimations, height);
+      buildAuxAnimationPlaceholder(auxSortedElements, height);
     }
     // =========================================================================
   }
 
-  return {allArrayStates, auxAnimations, sortedElements, auxillaryArrays, greyOutCells , auxGreyOutCells}
+  return {allArrayStates, auxAnimations, auxSortedElements, auxillaryArrays, greyOutCells , auxGreyOutCells}
 }
 
 // array is initial array
@@ -222,7 +248,7 @@ function merge(
     staticArray,
     allArrayStates, 
     auxAnimations,
-    sortedElements, 
+    auxSortedElements, 
     auxillaryArrays,
     greyOutCells,
     auxGreyOutCells,
@@ -277,6 +303,7 @@ function merge(
         auxAnimations[auxAnimations.length -1][height*2 - 2 - callDepth][i].push(leftArray[l].key);
         auxAnimations[auxAnimations.length -1][height*2 - 2 - callDepth][i].push(rightArray[r].key);
       }
+      buildAuxAnimationPlaceholder(auxSortedElements, height);
     }
     // =========================================================================
 
@@ -320,6 +347,7 @@ function merge(
     greyOutCells.push(greyOutCells[greyOutCells.length -1]);    
     auxGreyOutCells.push(structuredClone(auxGreyOutCells[auxGreyOutCells.length -1]));
     allArrayStates.push([...staticArray]);
+    buildAuxAnimationPlaceholder(auxSortedElements, height);
     // =========================================================================
   }
 
@@ -346,6 +374,7 @@ function merge(
         auxAnimations[auxAnimations.length -1][height*2 - 2 - callDepth][j].push(leftArray[l].key);
       }
     }
+    buildAuxAnimationPlaceholder(auxSortedElements, height);
     // =========================================================================
   }
 
@@ -372,12 +401,13 @@ function merge(
         auxAnimations[auxAnimations.length -1][height*2 - 2 - callDepth][j].push(rightArray[r].key);
       }
     }
+    buildAuxAnimationPlaceholder(auxSortedElements, height);
     // =========================================================================
   }
 
   divisionInsertPosition[mergeInsertionPosition] += 1;
     
-  return {allArrayStates, auxAnimations, sortedElements, auxillaryArrays, greyOutCells , auxGreyOutCells};
+  return {allArrayStates, auxAnimations, auxSortedElements, auxillaryArrays, greyOutCells , auxGreyOutCells};
   
 }
 

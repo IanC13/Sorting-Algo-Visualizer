@@ -115,15 +115,14 @@ function CellVisualizerBody(props) {
                       key={elementObject.key}
                       style={{ aspectRatio: 1/1,
                               width: `min(${50}px, ${5}vw)`,
-                              backgroundColor: (props.auxHighlightedCells[levelIdx][subIdx].includes(elementObject.key)) ? HIGHLIGHT_COLOR : 
+                              backgroundColor: (props.auxSortedElements[levelIdx][subIdx].includes(elementObject.key)) ? SORTED_COLOR :
+                                                (props.auxSorted === true) ? GREY_OUT :
+                                                (props.auxHighlightedCells[levelIdx][subIdx].includes(elementObject.key)) ? HIGHLIGHT_COLOR : 
                                               (props.auxGreyOutCells[levelIdx][subIdx].includes(elementObject.key)) ? GREY_OUT : DEFAULT_COLOR
                               
                               }}
                     >
                     {elementObject.value}
-                    {/* {console.log(levelIdx)}
-                    {console.log(subIdx)} */}
-                    {/* {console.log(cellsToAnimate)} */}
                     </div>
                   )}
                 </motion.div>
@@ -151,6 +150,7 @@ function CellVisualizerBody(props) {
                         ),
                         backgroundColor: (
                             (props.sorted === true) ? SORTED_COLOR :
+                            (props.auxSorted === true) ? GREY_OUT :
                             (props.sortedElements !== undefined) &&
                             (props.sortedElements.includes(elementObject.key)) ?
                                 SORTED_COLOR :

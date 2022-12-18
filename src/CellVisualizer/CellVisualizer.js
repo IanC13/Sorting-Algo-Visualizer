@@ -10,14 +10,14 @@ import mergeSortHelperCell from '../Algorithms/Cell/MergeSortCell';
 
 // Obj necessary as Framer Motion tracks the key for animation
 const startingArray = [
-    {key: 5, value: 5}, 
-    {key: 2, value: 2}, 
-    {key: 7, value: 7}, 
-    {key: 4, value: 4}, 
-    {key: 1, value: 1}, 
-    {key: 6, value: 6}, 
-    {key: 3, value: 3}, 
-    {key: 0, value: 1} ];
+    {key: 5, value: 10}, 
+    {key: 2, value: 3}, 
+    {key: 7, value: 12}, 
+    {key: 4, value: 6}, 
+    {key: 1, value: 0}, 
+    {key: 6, value: 9}, 
+    {key: 3, value: 15}, 
+    {key: 0, value: 6} ];
 
 // Tracks the current step in the algorithm when stepping through it
 let currentStep = -1;
@@ -28,8 +28,10 @@ let playTimer;
 function CellVisualizer() {
 
   const [algoSelected, setAlgoSelected] = useState(false);
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState();
 
   const [sorted, setSorted] = useState(false);
+  const [auxSorted, setAuxSorted] = useState(false);
 
   const [array, setArray] = useState(startingArray);
   const [arrayStates, setArrayStates] = useState();
@@ -57,11 +59,16 @@ function CellVisualizer() {
   const [auxHighlightedCells, setAuxHighlightedCells] = useState();
   const [auxHighlightedCellStates, setAuxHighlightedCellStates] = useState();
 
+  const [auxSortedElements, setAuxSortedElements] = useState();
+  const [auxSortedElementStates, setAuxSortedElementStates] = useState();
+
 
   function resetDefaultArray() {
     currentStep = -1;
     setAlgoSelected(false);
+    setSelectedAlgorithm();
     setSorted(false);
+    setAuxSorted(false);
 
     setArray(startingArray)
     setArrayStates();
@@ -83,12 +90,16 @@ function CellVisualizer() {
     setAuxGreyOutCellStates();
     setAuxHighlightedCells();
     setAuxHighlightedCellStates();
+    setAuxSortedElements();
+    setAuxSortedElementStates();
   }
 
   function resetState() {
     currentStep = -1;
     setAlgoSelected(true);
+    setSelectedAlgorithm();
     setSorted(false);
+    setAuxSorted(false);
 
     setArrayStates();
 
@@ -110,12 +121,15 @@ function CellVisualizer() {
     setAuxGreyOutCellStates();
     setAuxHighlightedCells();
     setAuxHighlightedCellStates();
+    setAuxSortedElements();
+    setAuxSortedElementStates();
   }
 
   //==================== Sorting Algorithm Functions ===========================
 
   function bubbleSortFunction() {
     resetState();
+    setSelectedAlgorithm('BUBBLE');
 
     let {allArrayStates, animations, sortedElements} = 
         bubbleSortHelperCell(array);
@@ -136,11 +150,14 @@ function CellVisualizer() {
     setGreyOutCellStates(placeholder);
     setAuxGreyOutCellStates(placeholder);
     setAuxHighlightedCellStates(placeholder);
+    setAuxSortedElements(placeholder);
+    setAuxSortedElementStates(placeholder);
   }
 
 
   function selectionSortFunction() {
     resetState();
+    setSelectedAlgorithm('SELECTION');
 
     let {allArrayStates, animations, sortedElements} = 
         selectionSortHelperCell(array);
@@ -160,19 +177,23 @@ function CellVisualizer() {
     setGreyOutCellStates(placeholder);
     setAuxGreyOutCellStates(placeholder);
     setAuxHighlightedCellStates(placeholder);
+    setAuxSortedElements(placeholder);
+    setAuxSortedElementStates(placeholder);
   }
 
   function mergeSortFunction() {
     resetState();
+    setSelectedAlgorithm('MERGE');
 
-    let {allArrayStates, sortedElements, auxillaryArrays, auxAnimations, greyOutCells, auxGreyOutCells} = 
+    let {allArrayStates, auxSortedElements, auxillaryArrays, auxAnimations, greyOutCells, auxGreyOutCells} = 
         mergeSortHelperCell(array);
-
+    
     setArrayStates(allArrayStates);
     setAuxillaryArrayStates(auxillaryArrays);
     setAuxHighlightedCellStates(auxAnimations);
     setGreyOutCellStates(greyOutCells);
     setAuxGreyOutCellStates(auxGreyOutCells);   
+    setAuxSortedElementStates(auxSortedElements);
     
     let length = allArrayStates.length;
     // Not used states
@@ -195,48 +216,44 @@ function CellVisualizer() {
       setEndOfAnimations(true);
     }
     
+    // Check if sorted
     if (currentStep === arrayStates.length -1) {
-      setSorted(true);
+      // Highlight primary array
+      if (selectedAlgorithm !== 'MERGE') {
+        setSorted(true);
+      }
+      setAuxSorted(true);
     }
 
+    // Not the start of animations
     if (currentStep > 0) {
       setStartOfAnimations(false);
     }
     
-    setArray(arrayStates[currentStep]);
-    setHighlightedCells(highlightedCellsStates[currentStep]);
-    setSortedElements(sortedElementsStates[currentStep]);
-
-    setGreyOutCells(greyOutCellStates[currentStep]);
-    setAuxGreyOutCells(auxGreyOutCellStates[currentStep]);
-    setAuxillaryArrays(auxillaryArrayStates[currentStep]);
-    setAuxHighlightedCells(auxHighlightedCellStates[currentStep]);
+    editStates();
   }
 
   function stepBackwardsFunction() {
     currentStep -= 1;
     
+    // Not the end of animations
     if (currentStep < arrayStates.length -1) {
       setEndOfAnimations(false);
       setSorted(false);
+      setAuxSorted(false);
     }
     
+    // If we stepped further back from the start of the animations
     if (currentStep === -1) {
       currentStep += 1;
     }
 
+    // Very start of animations
     if (currentStep === 0) {
       setStartOfAnimations(true);
     }
         
-    setArray(arrayStates[currentStep]);
-    setHighlightedCells(highlightedCellsStates[currentStep]);
-    setSortedElements(sortedElementsStates[currentStep]);
-
-    setAuxillaryArrays(auxillaryArrayStates[currentStep]);
-    setGreyOutCells(greyOutCellStates[currentStep]);
-    setAuxGreyOutCells(auxGreyOutCellStates[currentStep]);
-    setAuxHighlightedCells(auxHighlightedCellStates[currentStep]);
+    editStates();
   }
 
   function playAnimationFunction() {
@@ -249,24 +266,22 @@ function CellVisualizer() {
       // End of animations
       if (currentStep === arrayStates.length) {
         currentStep -= 1;
-        setSorted(true);
         setRunning(false);
         setEndOfAnimations(true);
         clearInterval(playTimer);
+        if (selectedAlgorithm !== 'MERGE') {
+          setSorted(true);
+        }
+        setAuxSorted(true);
       }
 
       if (currentStep === arrayStates.length -1) {
-        setSorted(true);
+        if (selectedAlgorithm !== 'MERGE') {
+          setSorted(true);
+        }
+        setAuxSorted(true);
       }
-
-      setArray(arrayStates[currentStep]);
-      setHighlightedCells(highlightedCellsStates[currentStep]);
-      setSortedElements(sortedElementsStates[currentStep]);
-
-      setGreyOutCells(greyOutCellStates[currentStep]);
-      setAuxGreyOutCells(auxGreyOutCellStates[currentStep]);
-      setAuxillaryArrays(auxillaryArrayStates[currentStep]);
-      setAuxHighlightedCells(auxHighlightedCellStates[currentStep]);
+      editStates();
     }, 250)
 
   }
@@ -274,6 +289,18 @@ function CellVisualizer() {
   function pauseAnimationFunction() {
     setRunning(false);
     clearInterval(playTimer);
+  }
+
+  function editStates() {
+    setArray(arrayStates[currentStep]);
+    setHighlightedCells(highlightedCellsStates[currentStep]);
+    setSortedElements(sortedElementsStates[currentStep]);
+
+    setGreyOutCells(greyOutCellStates[currentStep]);
+    setAuxGreyOutCells(auxGreyOutCellStates[currentStep]);
+    setAuxillaryArrays(auxillaryArrayStates[currentStep]);
+    setAuxHighlightedCells(auxHighlightedCellStates[currentStep]);
+    setAuxSortedElements(auxSortedElementStates[currentStep]);
   }
 
   //============================================================================
@@ -308,6 +335,8 @@ function CellVisualizer() {
         auxGreyOutCells={auxGreyOutCells}
         auxillaryArrays={auxillaryArrays}
         auxHighlightedCells={auxHighlightedCells}
+        auxSortedElements={auxSortedElements}
+        auxSorted={auxSorted}
       />
     </div>
   )
