@@ -74,6 +74,15 @@ function CellVisualizer() {
 
     setRunning(false);
     setEndOfAnimations(false);
+
+    setAuxillaryArrays([]);
+    setAuxillaryArrayStates();
+    setGreyOutCells([]);
+    setGreyOutCellStates();
+    setAuxGreyOutCells([]);
+    setAuxGreyOutCellStates();
+    setAuxHighlightedCells();
+    setAuxHighlightedCellStates();
   }
 
   function resetState() {
@@ -92,6 +101,15 @@ function CellVisualizer() {
     setRunning(false);
     setStartOfAnimations(true);
     setEndOfAnimations(false);
+
+    setAuxillaryArrays([]);
+    setAuxillaryArrayStates();
+    setGreyOutCells([]);
+    setGreyOutCellStates();
+    setAuxGreyOutCells([]);
+    setAuxGreyOutCellStates();
+    setAuxHighlightedCells();
+    setAuxHighlightedCellStates();
   }
 
   //==================== Sorting Algorithm Functions ===========================
@@ -114,13 +132,9 @@ function CellVisualizer() {
     for (let i = 0; i < length; i++) {
       placeholder.push([]);
     }
-    setAuxillaryArrays(placeholder);
     setAuxillaryArrayStates(placeholder);
-    setGreyOutCells(placeholder);
     setGreyOutCellStates(placeholder);
-    setAuxGreyOutCells(placeholder);
     setAuxGreyOutCellStates(placeholder);
-    setAuxHighlightedCells(placeholder);
     setAuxHighlightedCellStates(placeholder);
   }
 
@@ -137,56 +151,39 @@ function CellVisualizer() {
     setSortedElementsStates(sortedElements);
 
     let length = allArrayStates.length;
-    // Not used states
     let placeholder = [];
     for (let i = 0; i < length; i++) {
       placeholder.push([]);
     }
-    setAuxillaryArrays(placeholder);
+    // Not used states
     setAuxillaryArrayStates(placeholder);
-    setGreyOutCells(placeholder);
     setGreyOutCellStates(placeholder);
-    setAuxGreyOutCells(placeholder);
     setAuxGreyOutCellStates(placeholder);
-    setAuxHighlightedCells(placeholder);
     setAuxHighlightedCellStates(placeholder);
   }
 
   function mergeSortFunction() {
     resetState();
 
-    let {allArrayStates, auxAnimations, sortedElements, auxillaryArrays, greyOutCells, auxGreyOutCells} = 
+    let {allArrayStates, sortedElements, auxillaryArrays, auxAnimations, greyOutCells, auxGreyOutCells} = 
         mergeSortHelperCell(array);
 
-    console.log(greyOutCells);
-    console.log(auxillaryArrays);
-    console.log(auxGreyOutCells);
-    console.log(allArrayStates);
-    console.log(auxAnimations);
-
-
-
+    setArrayStates(allArrayStates);
+    setAuxillaryArrayStates(auxillaryArrays);
+    setAuxHighlightedCellStates(auxAnimations);
+    setGreyOutCellStates(greyOutCells);
+    setAuxGreyOutCellStates(auxGreyOutCells);   
+    
     let length = allArrayStates.length;
     // Not used states
     let placeholder = [];
     for (let i = 0; i < length; i++) {
       placeholder.push([]);
     }
-    
 
-
-    setArrayStates(allArrayStates);
-
-    setHighlightedCellsStates(auxillaryArrays);
-    setSortedElementsStates(auxillaryArrays);
-
-    setAuxHighlightedCellStates(auxAnimations);
-
-    setAuxillaryArrayStates(auxillaryArrays);
-    setGreyOutCellStates(greyOutCells);
-    setAuxGreyOutCellStates(auxGreyOutCells);
+    setHighlightedCellsStates(placeholder);
+    setSortedElementsStates(placeholder);
   }
-
 
   //===================== Control Button Functions =============================
   function stepForwardFunction() {
@@ -207,14 +204,12 @@ function CellVisualizer() {
     }
     
     setArray(arrayStates[currentStep]);
-    // setHighlightedCells(highlightedCellsStates[currentStep]);
-    // setSortedElements(sortedElementsStates[currentStep]);
-    // console.log(auxillaryArrayStates[currentStep]);
-    setAuxGreyOutCells(auxGreyOutCellStates[currentStep]);
-    console.log(auxGreyOutCells);
-    setAuxillaryArrays(auxillaryArrayStates[currentStep]);
-    setGreyOutCells(greyOutCellStates[currentStep]);
+    setHighlightedCells(highlightedCellsStates[currentStep]);
+    setSortedElements(sortedElementsStates[currentStep]);
 
+    setGreyOutCells(greyOutCellStates[currentStep]);
+    setAuxGreyOutCells(auxGreyOutCellStates[currentStep]);
+    setAuxillaryArrays(auxillaryArrayStates[currentStep]);
     setAuxHighlightedCells(auxHighlightedCellStates[currentStep]);
   }
 
@@ -234,9 +229,10 @@ function CellVisualizer() {
       setStartOfAnimations(true);
     }
         
-    // setArray(arrayStates[currentStep]);
-    // setHighlightedCells(highlightedCellsStates[currentStep]);
-    // setSortedElements(sortedElementsStates[currentStep]);
+    setArray(arrayStates[currentStep]);
+    setHighlightedCells(highlightedCellsStates[currentStep]);
+    setSortedElements(sortedElementsStates[currentStep]);
+
     setAuxillaryArrays(auxillaryArrayStates[currentStep]);
     setGreyOutCells(greyOutCellStates[currentStep]);
     setAuxGreyOutCells(auxGreyOutCellStates[currentStep]);
@@ -266,6 +262,11 @@ function CellVisualizer() {
       setArray(arrayStates[currentStep]);
       setHighlightedCells(highlightedCellsStates[currentStep]);
       setSortedElements(sortedElementsStates[currentStep]);
+
+      setGreyOutCells(greyOutCellStates[currentStep]);
+      setAuxGreyOutCells(auxGreyOutCellStates[currentStep]);
+      setAuxillaryArrays(auxillaryArrayStates[currentStep]);
+      setAuxHighlightedCells(auxHighlightedCellStates[currentStep]);
     }, 250)
 
   }
