@@ -18,5 +18,4 @@ This application was bootstrapped with [Create React App](https://github.com/fac
 
 ## Future Features 
 
-- An alternative mode in the app with a cell based view of an array where each step of the algorithms can be stepped through to get a better understanding in the operations.
 - More algorithms
