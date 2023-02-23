@@ -7,6 +7,7 @@ import CellVisualizerBody from './Body/CellVisualizerBody';
 import bubbleSortHelperCell from '../Algorithms/Cell/BubbleSortCell';
 import selectionSortHelperCell from '../Algorithms/Cell/SelectionSortCell';
 import mergeSortHelperCell from '../Algorithms/Cell/MergeSortCell';
+import insertionSortHelperCell from '../Algorithms/Cell/InsertionSortCell';
 
 // Obj necessary as Framer Motion tracks the key for animation
 const startingArray = [
@@ -211,6 +212,40 @@ function CellVisualizer() {
     setSortedElementsStates(placeholder);
   }
 
+  function insertionSortFunction() {
+    resetState();
+    setSelectedAlgorithm('INSERTION');
+
+    let {allArrayStates, animations, sortedElements} = 
+        insertionSortHelperCell(array);
+
+        
+    setArray(allArrayStates[0]);
+    setArrayStates(allArrayStates);
+    setHighlightedCellsStates(animations);
+    setSortedElementsStates(sortedElements);
+
+    console.log(allArrayStates);
+    console.log(animations);
+    console.log(sortedElements);
+
+        
+    let length = allArrayStates.length;
+    // Not used states
+    let placeholder = [];
+    for (let i = 0; i < length; i++) {
+      placeholder.push([]);
+    }
+    setAuxillaryArrayStates(placeholder);
+    setGreyOutCellStates(placeholder);
+    setAuxGreyOutCellStates(placeholder);
+    setAuxHighlightedCellStates(placeholder);
+    setAuxSortedElements(placeholder);
+    setAuxSortedElementStates(placeholder);
+
+    console.log('insertionSortFunction');
+  }
+
   //===================== Control Button Functions =============================
   function stepForwardFunction() {
     currentStep += 1;
@@ -321,6 +356,7 @@ function CellVisualizer() {
         bubbleSort={bubbleSortFunction}
         selectionSort={selectionSortFunction}
         mergeSort={mergeSortFunction}
+        insertionSort={insertionSortFunction}
 
         algoSelected={algoSelected}
         selectedAlgorithm={selectedAlgorithm}

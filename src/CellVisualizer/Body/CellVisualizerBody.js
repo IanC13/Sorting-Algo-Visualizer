@@ -157,12 +157,12 @@ function CellVisualizerBody(props) {
                         backgroundColor: (
                             (props.sorted === true) ? SORTED_COLOR :
                             (props.auxSorted === true) ? GREY_OUT :
-                            (props.sortedElements !== undefined) &&
-                            (props.sortedElements.includes(elementObject.key)) ?
-                                SORTED_COLOR :
                             ((props.highlightedCells !== undefined) &&
                              (props.highlightedCells.includes(
                                   elementObject.key))) ? HIGHLIGHT_COLOR :
+                            (props.sortedElements !== undefined) &&
+                            (props.sortedElements.includes(elementObject.key)) ?
+                                SORTED_COLOR :
                             (props.greyOutCells.includes(elementObject.key)) ?
                                 GREY_OUT : DEFAULT_COLOR)
                     } }

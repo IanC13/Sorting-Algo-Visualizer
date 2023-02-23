@@ -43,7 +43,6 @@ function selectionSortCell(array) {
       // }
     }
 
-    
     let tmp = newArray[minIdx];
     newArray[minIdx] = newArray[i];
     newArray[i] = tmp;

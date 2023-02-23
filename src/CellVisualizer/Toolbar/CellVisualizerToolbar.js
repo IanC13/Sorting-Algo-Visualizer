@@ -50,6 +50,18 @@ function CellVisualizerToolbar(props) {
           >
             Merge Sort
           </button>
+
+          <button 
+            onClick={props.insertionSort} 
+            disabled={props.running}
+            style={{
+              backgroundColor: props.selectedAlgorithm === 'INSERTION' ? 
+                  SELECTED_COLOR : DEFAULT_COLOR
+            }}
+          >
+            Insertion Sort
+          </button>
+
         </div>
       </div>
 
