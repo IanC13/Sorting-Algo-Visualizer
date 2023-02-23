@@ -15,6 +15,7 @@ This application was bootstrapped with [Create React App](https://github.com/fac
 - Bubble Sort
 - Selection Sort
 - Merge Sort
+- Insertion Sort (Cell view only)
 
 ## Future Features 
 
