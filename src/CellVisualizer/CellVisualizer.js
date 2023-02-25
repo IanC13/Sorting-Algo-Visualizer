@@ -219,16 +219,10 @@ function CellVisualizer() {
     let {allArrayStates, animations, sortedElements} = 
         insertionSortHelperCell(array);
 
-        
     setArray(allArrayStates[0]);
     setArrayStates(allArrayStates);
     setHighlightedCellsStates(animations);
     setSortedElementsStates(sortedElements);
-
-    console.log(allArrayStates);
-    console.log(animations);
-    console.log(sortedElements);
-
         
     let length = allArrayStates.length;
     // Not used states
@@ -242,8 +236,6 @@ function CellVisualizer() {
     setAuxHighlightedCellStates(placeholder);
     setAuxSortedElements(placeholder);
     setAuxSortedElementStates(placeholder);
-
-    console.log('insertionSortFunction');
   }
 
   //===================== Control Button Functions =============================
