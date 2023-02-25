@@ -40,6 +40,10 @@ function BarVisualizerToolbar(props) {
           >
             Merge Sort
           </button>
+
+          <button onClick={props.insertionSort} disabled={props.running}>
+            Insertion Sort
+          </button>
         </div>
       </div>
 

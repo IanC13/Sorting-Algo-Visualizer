@@ -155,6 +155,10 @@ function BarVisualizer() {
         setGreyOutBars);
   }
 
+  function insertionSortFunction() {
+    console.log("Insertion Sort");
+  }
+
   function handleElementsSliderChange(value) {
     setNumOfElements(value);
   }
@@ -186,6 +190,7 @@ function BarVisualizer() {
         bubbleSort={bubbleSortFunction}
         selectionSort={selectionSortFunction}
         mergeSort={mergeSortFunction}
+        insertionSort={insertionSortFunction}
       />
 
       <BarVisualizerBody 
