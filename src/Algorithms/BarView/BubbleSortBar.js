@@ -16,7 +16,7 @@ function bubbleSortHelperBar(
   let largerColorDelay = delay;
   // Delay from 2 differently highlighted bar to swapping
   let swapDelay = largerColorDelay + delay;
-
+  
   for (let i = 0; i < length; i++) {
     setTimeout(() => {
       // Current 2 bars we are comparing. state change so re renders which 
@@ -99,6 +99,9 @@ function bubbleSort(array) {
       
         swap = true;
       } else {
+        // Push 2 of the same index as the animations highlights the first idx
+        // then the second one. So when there is no swap, we want to highlight
+        // the same bar.
         largerArray.push([j+1, j+1]);
       }
 

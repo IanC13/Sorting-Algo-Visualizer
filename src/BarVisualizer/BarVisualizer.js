@@ -6,6 +6,7 @@ import BarVisualizerToolbar from './Toolbar/BarVisualizerToolbar';
 import bubbleSortHelperBar from '../Algorithms/BarView/BubbleSortBar';
 import selectionSortHelperBar from '../Algorithms/BarView/SelectionSortBar';
 import mergeSortHelperBar from '../Algorithms/BarView/MergeSortBar';
+import insertionSortHelperBar from '../Algorithms/BarView/InsertionSortBar';
 
 const MIN_DELAY = 1;
 const MAX_DELAY = 100;
@@ -156,7 +157,17 @@ function BarVisualizer() {
   }
 
   function insertionSortFunction() {
-    console.log("Insertion Sort");
+    resetState();
+
+    insertionSortHelperBar(
+      array, 
+      calculateDelay, 
+      setCurrentBars, 
+      setSpecial, 
+      setArray, 
+      setSorted, 
+      setSortedBars
+    );
   }
 
   function handleElementsSliderChange(value) {

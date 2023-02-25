@@ -22,13 +22,14 @@ function insertionSortCell(array) {
     while (j >= 0) {
       // If statement instead of just include condition in while statement so 
       // that comparisons can be highlighted even if condition untrue
-      if (newArray[j+1].value < newArray[j].value){
-        animations.push([newArray[j+1].key, newArray[j].key]);
-        allArrayStates.push([...newArray]);
-        // Don't push if it is last idx in this loop - push below
-        if (j !== 0) {
-          sortedElements.push(sortedElements[sortedElements.length - 1]);
-        }
+      animations.push([newArray[j+1].key, newArray[j].key]);
+      allArrayStates.push([...newArray]);
+      // Don't push if it is last idx in this loop - push below
+      if (j !== 0) {
+        sortedElements.push(sortedElements[sortedElements.length - 1]);
+      }
+
+      if (newArray[j+1].value < newArray[j].value) {
 
         let tmp = newArray[j + 1];
         newArray[j + 1] = newArray[j];
@@ -42,11 +43,6 @@ function insertionSortCell(array) {
 
         j -= 1;
       } else {
-        animations.push([newArray[j+1].key, newArray[j].key]);
-        allArrayStates.push([...newArray]);
-        if (j !== 0) {
-          sortedElements.push(sortedElements[sortedElements.length - 1]);
-        }
         break;
       }
     }

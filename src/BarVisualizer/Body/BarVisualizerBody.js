@@ -35,9 +35,9 @@ function BarVisualizerBody(props) {
                     width: `${100/(props.numOfElements + numOfSpaces)}%`,
                     backgroundColor: 
                         (props.sorted === true ? SORTED_COLOR : 
-                        (props.sortedBars.includes(id) ? SORTED_COLOR :
                         (id === props.specialBar ? SPECIAL_COLOR : 
                         (props.currentBars.includes(id)) ? HIGHLIGHT_COLOR : 
+                        (props.sortedBars.includes(id) ? SORTED_COLOR :
                         (!props.greyOutBars.includes(id) ? GREY_OUT :
                         DEFAULT_COLOR))))
                 } }
